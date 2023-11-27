@@ -153,59 +153,19 @@
             <h2>새로 나왔어요!</h2>
         </div>
         <div class="row row-custom">
-            <div class="col new-item">
+            <div class="col new-item" th:each="product : ${products}">
                 <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
+                    <img th:src="${product.thumbnailPath}" class="card-img-top" alt="상품 이미지">
                     <div class="card-body">
-                        <h5 class="card-title separator">뼈 튼튼 사료</h5>
-                        <p class="card-text">25,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col new-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title separator">강아지 패딩</h5>
-                        <p class="card-text">37,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col new-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">캣잎</h5>
-                        <p class="card-text">13,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col new-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">캣잎</h5>
-                        <p class="card-text">13,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col new-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">츄르 1box</h5>
-                        <p class="card-text">28,000</p>
+                        <h5 class="card-title" th:text="${product.name}">상품명</h5>
+                        <p class="card-text" th:text="${product.price}">가격</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-
 </div>
-
-
 
 <!-- 모달 등 추가 div가 필요할 경우만 사용 -->
 <div layout:fragment="content-bottom">
@@ -214,5 +174,7 @@
     </div>
 </div>
 <!-- 고유 script -->
-<script></script>
+<script>
+
+</script>
 </html>
