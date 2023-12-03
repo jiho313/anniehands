@@ -16,9 +16,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
 
-    @Column(name = "category_no", nullable = false)
-    private Integer categoryNo;
-
     @Column(nullable = false, length = 100)
     private String thumbnailPath;
 
@@ -47,15 +44,14 @@ public class Product {
     private Boolean isEnabled;
 
     // 연관 관계 매핑 (Category 엔티티와의 관계)
-    @ManyToOne
-    @JoinColumn(name = "category_no", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_no")
     private Category category;
 
     @Builder
-    public Product(Long no, Integer categoryNo, String thumbnailPath, String name, String content, Integer price,
-                   Integer sale, Integer stock, LocalDateTime createdDate, LocalDateTime updatedDate, Boolean isEnabled, Category category) {
+    public Product(Long no, String thumbnailPath, String name, String content, Integer price, Integer sale, Integer stock,
+                   LocalDateTime createdDate, LocalDateTime updatedDate, Boolean isEnabled, Category category) {
         this.no = no;
-        this.categoryNo = categoryNo;
         this.thumbnailPath = thumbnailPath;
         this.name = name;
         this.content = content;

@@ -16,12 +16,18 @@ import java.util.List;
 public class MainController {
 
     private final ProductService productService;
-    
+
     @GetMapping("/")
     public String home(Model model) {
         List<Product> products = this.productService.getTop5NewProducts();
         model.addAttribute("products", products);
         log.info("상품들 ====> {}", products);
         return "page/main/home";
+    }
+
+    @GetMapping("/singup")
+    public String stringUpForm() {
+
+        return "page/main/singup";
     }
 }

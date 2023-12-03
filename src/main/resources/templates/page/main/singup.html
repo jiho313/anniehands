@@ -1,0 +1,118 @@
+<html layout:decorate="~{layout/common-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/main/singup.css}">
+</head>
+<!-- 고유 content -->
+
+<div class="container" layout:fragment="content-top">
+    <div class="card">
+        <div class="card-header py-1 pt-2 text-center">
+            <h3>회원가입</h3>
+        </div>
+        <form action="">
+            <div class="card-body">
+
+                <div class="mb-3 row" id="idForm">
+                    <label class="col-form-label">아이디 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="inputId" name="id" type="text">
+                    </div>
+                    <div class="col-auto mt-1">
+                            <span class="form-text" id="idHelpInline">
+                              (영문소문자/숫자 4~16자)
+                            </span>
+                    </div>
+                </div>
+                <div class="mb-3 row" id="passwordForm1">
+                    <label class="col-form-label">비밀번호 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="inputPassword1" name="password1" type="password">
+                    </div>
+                    <div class="col-auto mt-1">
+                            <span class="form-text" id="passwordHelpInline">
+                              (영문대소문자/숫자 4~16자)
+                            </span>
+                    </div>
+                </div>
+                <div class="mb-3 row" id="passwordForm2">
+                    <label class="col-form-label">비밀번호 확인 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="inputPassword2" name="password2" type="password">
+                    </div>
+                </div>
+                <div class="mb-3 row" id="nameForm">
+                    <label class="col-form-label">이름 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="inputName" name="name" type="test">
+                    </div>
+                </div>
+                <div class="mb-3" id="addressForm">
+                    <label class="col-form-label">주소 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-2 mb-1 d-flex">
+                        <input class="form-control me-1" id="inputZipcode" name="zipcode" placeholder="우편번호" readonly type="text">
+                        <button class="btn btn-success text-nowrap zipcode-btn" id="zipcodeBtn" type="button">우편번호</button>
+                    </div>
+                    <div class="col-sm-5 mb-1">
+                        <input class="form-control" id="inputAddress" placeholder="기본주소" name="address" readonly type="text">
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" id="inputAddressDetail" placeholder="상세주소" name="addressDetail" type="text">
+                    </div>
+                </div>
+                <div class="mb-3 row" id="telForm">
+                    <label class="col-form-label">전화번호 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-auto col-sm-1">
+                        <select class="form-select" id="" name="tel1">
+                            <option selected>010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                        </select>
+                    </div>
+                    <div class="col-auto col-sm-1">
+                        <input class="form-control" id="inputTel2" maxlength="4" name="tel2" type="text">
+                    </div>
+                    <div class="col-auto col-sm-1">
+                        <input class="form-control" id="inputTel3" maxlength="4" name="tel3" type="text">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-light" id="phoneVerificationBtn" type="button">인증번호 받기</button>
+                    </div>
+                </div>
+                <div class="mb-3" id="emailFrom">
+                    <label class="col-form-label">이메일 <i class="fa-solid fa-check" style="color: #ff0000;"></i></label>
+                    <div class="col-sm-5 mb-1 d-flex">
+                        <input class="form-control me-1" id="inputEmail" name="email" placeholder="user@email.com" type="email">
+                    </div>
+                </div>
+                <div class="mb-3" id="birthFrom">
+                    <label class="col-form-label">생년월일</label>
+                    <div class="col-sm-5 mb-1 d-flex">
+                        <input class="form-control me-1" id="inputBirth" nSame="birth" type="date">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="card-footer text-center">
+            <button class="btn btn-outline-secondary" id="canceled">취소</button>
+            <button class="btn btn-outline-primary" id="singup">회원가입</button>
+        </div>
+    </div>
+</div>
+
+<!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+<div layout:fragment="content-bottom">
+    <div class="modal">
+        <h1>modal영역</h1>
+    </div>
+</div>
+<!-- 고유 script -->
+<script>
+
+</script>
+</html>
