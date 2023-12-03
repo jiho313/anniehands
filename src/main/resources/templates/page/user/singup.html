@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <!-- 고유 CSS -->
 <head>
-    <link rel="stylesheet" th:href="@{/css/page/main/singup.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <!-- 고유 content -->
 
@@ -12,7 +12,7 @@
         <div class="card-header py-1 pt-2 text-center">
             <h3>회원가입</h3>
         </div>
-        <form action="">
+        <form th:action="@{/user/singup}" method="post">
             <div class="card-body">
 
                 <div class="mb-3 row" id="idForm">
@@ -93,15 +93,15 @@
                 <div class="mb-3" id="birthFrom">
                     <label class="col-form-label">생년월일</label>
                     <div class="col-sm-5 mb-1 d-flex">
-                        <input class="form-control me-1" id="inputBirth" nSame="birth" type="date">
+                        <input class="form-control me-1" id="inputBirth" name="birth" type="date">
                     </div>
                 </div>
             </div>
+            <div class="card-footer text-center">
+                <button class="btn btn-outline-secondary" id="canceled">취소</button>
+                <button class="btn btn-outline-primary" id="/user/singup">회원가입</button>
+            </div>
         </form>
-        <div class="card-footer text-center">
-            <button class="btn btn-outline-secondary" id="canceled">취소</button>
-            <button class="btn btn-outline-primary" id="singup">회원가입</button>
-        </div>
     </div>
 </div>
 
@@ -112,7 +112,5 @@
     </div>
 </div>
 <!-- 고유 script -->
-<script>
-
-</script>
+<script layout:fragment="script" th:src="@{/js/page/user/singup.js}"></script>
 </html>
