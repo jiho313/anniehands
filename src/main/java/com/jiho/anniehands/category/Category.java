@@ -19,11 +19,11 @@ public class Category {
 
     // 부모 카테고리와의 관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_category_id", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 
     // 자식 카테고리 리스트를 위한 관계 매핑
-    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parentCategory")
     private List<Category> childCategories;
 
     @Builder
