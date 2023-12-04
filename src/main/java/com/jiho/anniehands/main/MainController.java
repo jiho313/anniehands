@@ -25,9 +25,4 @@ public class MainController {
         return "page/main/home";
     }
 
-    @GetMapping("/singup")
-    public String stringUpForm() {
-
-        return "page/main/singup";
-    }
 }
