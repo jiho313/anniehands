@@ -1,9 +1,9 @@
 package com.jiho.anniehands;
 
-import com.jiho.anniehands.user.Role;
+import com.jiho.anniehands.exception.CustomErrorCode;
 import com.jiho.anniehands.product.Product;
 import com.jiho.anniehands.product.ProductService;
-import com.jiho.anniehands.user.User;
+import com.jiho.anniehands.user.Role;
 import com.jiho.anniehands.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +36,9 @@ class AnniehandsApplicationTests {
 	}
 
 	@Test
-	void roleEnumTest() {
-		User user = User.builder().role(Role.ROLE_USER).build();
-		assertThat(user.getRole().name()).isEqualTo("ROLE_USER");
+	void enumTest() {
+		assertThat(Role.ROLE_ADMIN.getRole()).isEqualTo("ROLE_ADMIN");
+		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getCode()).isEqualTo("400");
+		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()).isEqualTo("없는 회원입니다.");
 	}
-
 }
