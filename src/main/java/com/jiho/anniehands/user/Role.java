@@ -1,8 +1,10 @@
-package com.jiho.anniehands.auth;
+package com.jiho.anniehands.user;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum Role {
 
     ROLE_USER("ROLE_USER"),
@@ -10,7 +12,4 @@ public enum Role {
 
     private final String role;
 
-    Role(String role) {
-        this.role = role;
-    }
 }

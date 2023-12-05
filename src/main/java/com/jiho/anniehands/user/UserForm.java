@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -42,12 +42,12 @@ public class UserForm {
     private String tel;
 
     @NotBlank(message = "인증번호를 입력해주세요.")
-    private String verificationCode;
+    private String certificationCode;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
     @Size(max = 255)
     private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birth;
+    private LocalDate birth;
 }

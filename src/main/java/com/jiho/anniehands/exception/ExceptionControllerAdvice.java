@@ -2,11 +2,9 @@ package com.jiho.anniehands.exception;
 
 import com.jiho.anniehands.user.MemberException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice
 @Slf4j
@@ -25,10 +23,9 @@ public class ExceptionControllerAdvice {
 //    }
 
     @ExceptionHandler(MemberException.class)
-    public ResponseEntity<ErrorResponse> memberExceptionHandler(MemberException ex) {
-        log.error("MemberException", ex);
-        final ErrorResponse response = ErrorResponse.of(CustomErrorCode.MISMATCHED_PASSWORD);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    public String memberExceptionHandler(MemberException ex, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        return "redirect:/user/signup";
     }
 
 

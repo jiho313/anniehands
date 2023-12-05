@@ -13,7 +13,7 @@ $(function() {
     });
     function sendVerificationCode(tel) {
         $.ajax({
-               url: '/verification/send-verification-code',
+               url: '/certification/send-certification-code',
                type: 'POST',
                data: { tel: tel }
            }).done(function(response) {
