@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
-
     // 신상품 5개 조회
     List<Product> findTop5ByIsEnabledOrderByCreatedDateDesc(Boolean isEnabled);
 

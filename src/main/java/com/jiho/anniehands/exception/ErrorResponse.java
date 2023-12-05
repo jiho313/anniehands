@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse {
@@ -60,7 +59,7 @@ public class ErrorResponse {
         if (bindingResult != null) {
             response.fieldErrors = bindingResult.getFieldErrors().stream()
                     .map(fieldError -> new FieldError(fieldError.getField(), fieldError.getDefaultMessage()))
-                    .collect(Collectors.toList());
+                    .toList();
         }
         return response;
     }
