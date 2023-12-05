@@ -69,7 +69,7 @@ public class UserDetailsImpl implements UserDetails {
                 .password(user.getPassword())
                 .role(user.getRole())
                 .loginInfo(user.getLoginInfo())
-                .authorities(List.of(new SimpleGrantedAuthority(user.getRole().name())))
+                .authorities(List.of(new SimpleGrantedAuthority(user.getRole().getRole())))
                 .build();
     }
 }
