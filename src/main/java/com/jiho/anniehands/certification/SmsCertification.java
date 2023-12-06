@@ -10,7 +10,7 @@ import java.time.Duration;
 @Repository
 public class SmsCertification {
     // 키 값 중복방지 상수
-    private final String PREFIX = "sms:";
+    private final String PREFIX = "sms: ";
     private final int LIMIT_TIME = 3 * 60;
     private final StringRedisTemplate stringRedisTemplate;
 

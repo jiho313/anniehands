@@ -18,7 +18,7 @@ public class CertificationController {
 
     @PostMapping("/send-certification-code")
     @ResponseBody
-    public String sendSmsVerificationCode(@RequestParam String tel) {
+    public String sendSmsCertificationCode(@RequestParam String tel) {
         certificationService.sendOne(tel);
         return "SMS 인증번호가 발송되었습니다.";
     }
