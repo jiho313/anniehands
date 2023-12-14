@@ -36,7 +36,12 @@ public class UserController {
             return "page/user/signup";
         }
         userService.saveUser(userForm);
-        return "page/main/login";
+        return "page/user/login";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "page/user/login";
     }
 
     private void validateUserForm(UserForm userForm, BindingResult errors) {
