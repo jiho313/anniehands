@@ -32,7 +32,7 @@ class SmsCertificationTest {
     }
 
     @Test
-    public void testCreateSmsCertification() {
+     void testCreateSmsCertification() {
         String tel = "01012345678";
         String certificationCode = "12345";
 
@@ -42,7 +42,7 @@ class SmsCertificationTest {
     }
 
     @Test
-    public void testGetSmsCertification() {
+     void testGetSmsCertification() {
         String tel = "01012345678";
         when(valueOperations.get("sms:" + tel)).thenReturn("12345");
 
@@ -52,7 +52,7 @@ class SmsCertificationTest {
     }
 
     @Test
-    public void testDeleteSmsCertification() {
+     void testDeleteSmsCertification() {
         String tel = "01012345678";
 
         smsCertification.deleteSmsCertification(tel);
@@ -61,7 +61,7 @@ class SmsCertificationTest {
     }
 
     @Test
-    public void testHasKey() {
+     void testHasKey() {
         String tel = "01012345678";
         when(mockStringRedisTemplate.hasKey("sms: " + tel)).thenReturn(true);
 
