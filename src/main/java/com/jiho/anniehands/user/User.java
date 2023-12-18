@@ -49,7 +49,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     @Column(nullable = false)
-    private boolean isEnabled;
+    private Boolean isEnabled;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
@@ -64,7 +64,7 @@ public class User {
 
     @Builder
     public User(Long no, String id, String name, String email, String password, String tel, LocalDateTime createdAt, LocalDateTime updatedAt,
-                boolean isEnabled, Role role, LocalDate birthdate, LoginInfo loginInfo) {
+                Boolean isEnabled, Role role, LocalDate birthdate, LoginInfo loginInfo) {
         this.no = no;
         this.id = id;
         this.name = name;

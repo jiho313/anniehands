@@ -36,7 +36,6 @@ public class UserService implements UserDetailsService {
                 .birthdate(userForm.getBirth())
                 .loginInfo(LoginInfo.ANNIEHANDS)
                 .role(Role.ROLE_USER)
-                .isEnabled(true)
                 .build();
         validateDuplicateUser(user);
         userRepository.save(user);
