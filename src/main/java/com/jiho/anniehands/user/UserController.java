@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
+    private final UserRegistrationService userRegistrationService;
     private final CertificationService certificationService;
 
     @GetMapping("/signup")
@@ -35,12 +36,12 @@ public class UserController {
         if (errors.hasErrors()) {
             return "page/user/signup";
         }
-        userService.saveUser(userForm);
+        userRegistrationService.registerUser(userForm);
         return "page/user/login";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String loginForm() {
         return "page/user/login";
     }
 

@@ -1,6 +1,6 @@
 package com.jiho.anniehands.exception;
 
-import com.jiho.anniehands.user.MemberException;
+import com.jiho.anniehands.user.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,8 +22,8 @@ public class ExceptionControllerAdvice {
 //        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 //    }
 
-    @ExceptionHandler(MemberException.class)
-    public String memberExceptionHandler(MemberException ex, RedirectAttributes redirectAttributes) {
+    @ExceptionHandler(UserException.class)
+    public String memberExceptionHandler(UserException ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
         return "redirect:/user/signup";
     }

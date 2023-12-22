@@ -26,26 +26,27 @@ public class AnniehandsSecurityConfig {
         // csrf 비활성화
         http.csrf(AbstractHttpConfigurer::disable)
                 // 로그인 관련 설정
-                .formLogin(formLoginConfigurer-> formLoginConfigurer
-                        .loginPage("/login")
-                        .usernameParameter("id")
-                        .passwordParameter("password")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=fail"))
-                // 로그아웃 관련 설정
-                .logout(logoutConfigurer -> logoutConfigurer
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true))
-                // 인증인가 관련 설정
-                .exceptionHandling(exceptionHandlingConfigurer -> exceptionHandlingConfigurer
-                        .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login?error=noauth"))
-                        .accessDeniedHandler((request, response, authException) -> response.sendRedirect("/login?error=denied")));
+            .formLogin(formLoginConfigurer-> formLoginConfigurer
+                    .loginPage("/login")                        // 사용자 정의 로그인 페이지
+                    .usernameParameter("id")             // 로그인 폼의 사용자 id필드 이름
+                    .passwordParameter("password")       // 로그인 폼의 사용자 비밀번호 필드 이름
+                    .loginProcessingUrl("/login")         // 로그인 처리 url
+                    .defaultSuccessUrl("/")               // 로그인 성공 시 리다이렉트 url
+                    .failureUrl("/login?error=fail")) // 로그인 실패 시 리다이렉트 url
+            // 로그아웃 관련 설정
+            .logout(logoutConfigurer -> logoutConfigurer
+                    .logoutUrl("/logout")                       // 로그아웃 처리 url
+                    .logoutSuccessUrl("/")                // 로그아웃 성공시 리다이렉트 url
+                    .invalidateHttpSession(true))      // 로그아웃 시 세션 파괴
+            // 인증인가 관련 예외 처리 설정
+            .exceptionHandling(exceptionHandlingConfigurer -> exceptionHandlingConfigurer
+                    .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login?error=noauth"))
+                    .accessDeniedHandler((request, response, authException) -> response.sendRedirect("/login?error=denied")));
 
-        return http.build();
+        return http.build();    // HttpSecurity 설정을 기반으로 SecurityFilterChain을 빌드
     }
 
+    // 비밀번호 암호화(인코딩)을 위한 Bcrypt 빈 등록
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
