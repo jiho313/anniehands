@@ -57,14 +57,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
-    private LoginInfo loginInfo;
+    private UserLoginInfo loginInfo;
 
     @Column
     private LocalDate birthdate;
 
     @Builder
     public User(Long no, String id, String name, String email, String password, String tel, LocalDateTime createdAt, LocalDateTime updatedAt,
-                Boolean isEnabled, Role role, LocalDate birthdate, LoginInfo loginInfo) {
+                Boolean isEnabled, Role role, LocalDate birthdate, UserLoginInfo loginInfo) {
         this.no = no;
         this.id = id;
         this.name = name;
@@ -78,4 +78,5 @@ public class User {
         this.birthdate = birthdate;
         this.loginInfo = loginInfo;
     }
+
 }

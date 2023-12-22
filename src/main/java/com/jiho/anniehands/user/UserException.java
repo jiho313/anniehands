@@ -3,12 +3,12 @@ package com.jiho.anniehands.user;
 import com.jiho.anniehands.exception.AnnieHandsException;
 import com.jiho.anniehands.exception.CustomErrorCode;
 
-public class MemberException extends AnnieHandsException {
-    public MemberException(CustomErrorCode errorCode) {
+public class UserException extends AnnieHandsException {
+    public UserException(CustomErrorCode errorCode) {
         super(errorCode);
     }
 
-    public MemberException(String errorMessage) {
+    public UserException(String errorMessage) {
         super(errorMessage);
     }
 }
