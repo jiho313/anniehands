@@ -1,6 +1,6 @@
 package com.jiho.anniehands;
 
-import com.jiho.anniehands.exception.CustomErrorCode;
+import com.jiho.anniehands.common.exception.CustomErrorCode;
 import com.jiho.anniehands.product.Product;
 import com.jiho.anniehands.product.ProductService;
 import com.jiho.anniehands.user.Role;

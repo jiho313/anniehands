@@ -1,4 +1,4 @@
-package com.jiho.anniehands.exception;
+package com.jiho.anniehands.common.exception;
 
 public class AnnieHandsException extends RuntimeException {
     public AnnieHandsException(CustomErrorCode errorCode) {

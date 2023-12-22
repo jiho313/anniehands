@@ -2,7 +2,7 @@ package com.jiho.anniehands.user;
 
 
 import com.jiho.anniehands.certification.CertificationService;
-import com.jiho.anniehands.exception.CustomErrorCode;
+import com.jiho.anniehands.common.exception.CustomErrorCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
