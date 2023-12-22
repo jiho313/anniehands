@@ -1,4 +1,4 @@
-package com.jiho.anniehands.config;
+package com.jiho.anniehands.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;

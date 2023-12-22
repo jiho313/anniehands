@@ -1,4 +1,4 @@
-package com.jiho.anniehands.exception;
+package com.jiho.anniehands.common.exception;
 
 import lombok.Getter;
 import org.springframework.validation.BindingResult;

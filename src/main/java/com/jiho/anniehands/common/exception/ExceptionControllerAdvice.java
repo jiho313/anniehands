@@ -1,4 +1,4 @@
-package com.jiho.anniehands.exception;
+package com.jiho.anniehands.common.exception;
 
 import com.jiho.anniehands.user.UserException;
 import lombok.extern.slf4j.Slf4j;
