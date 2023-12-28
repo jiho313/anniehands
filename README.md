@@ -1,5 +1,6 @@
 ![reversal](https://capsule-render.vercel.app/api?type=rect&text=AnnieHands!&textBg=true&color=gradient&fontAlign=30&fontSize=30&desc=손을%20잡아주세요.&descAlign=60&descAlignY=50)
 # 🔍 Description
+- www.anniehands.co.kr
 - 반려동물 용품을 판매하는 쇼핑몰에 실종 및 입양 게시판을 통한 반려동물 커뮤니티 기능 제공
 - 웹 회원가입 로그인과 소셜로그인 방식 
 
