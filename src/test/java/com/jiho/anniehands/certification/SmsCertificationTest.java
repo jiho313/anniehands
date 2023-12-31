@@ -44,7 +44,7 @@ class SmsCertificationTest {
     @Test
      void testGetSmsCertification() {
         String tel = "01012345678";
-        when(valueOperations.get("sms:" + tel)).thenReturn("12345");
+        when(valueOperations.get("sms: " + tel)).thenReturn("12345");
 
         String returnedCode = smsCertification.getSmsCertification(tel);
 
