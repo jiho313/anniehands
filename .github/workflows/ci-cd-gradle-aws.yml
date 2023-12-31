@@ -7,9 +7,9 @@ on:
 # env: yml파일에서 사용할 변수 추가
 env: 
   PROJECT_NAME: anniehands
-  BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
-  CODE_DEPLOY_APP_NAME: ${{ secrets.CODE_DEPLOY_APP_NAME }}
-  DEPLOYMENT_GROUP_NAME: ${{ secrets.DEPLOYMENT_GROUP_NAME }}    
+  BUCKET_NAME: anniehands-bucket
+  CODE_DEPLOY_APP_NAME: anniehands-codeDeploy
+  DEPLOYMENT_GROUP_NAME: anniehands-codeDeploy 
 
 permissions:
   contents: read
