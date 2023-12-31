@@ -10,7 +10,7 @@ on:
 env: 
   PROJECT_NAME: anniehands
   BUCKET_NAME: anniehands-bucket
-  CODE_DEPLOY_APP_NAME: anniehands-codeDeploy
+  CODE_DEPLOY_APP_NAME: anniehands
   DEPLOYMENT_GROUP_NAME: anniehands-codeDeploy 
 
 permissions:
