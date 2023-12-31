@@ -3,15 +3,13 @@ name: Java CI/CD with Gradle And AWS Service
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    
 # env: yml파일에서 사용할 변수 추가
 env: 
   PROJECT_NAME: anniehands
-  BUCKET_NAME: ${{ BUCKET_NAME }}
-  CODE_DEPLOY_APP_NAME: ${{ CODE_DEPLOY_APP_NAME }}
-  DEPLOYMENT_GROUP_NAME: ${{ DEPLOYMENT_GROUP_NAME }}    
+  BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+  CODE_DEPLOY_APP_NAME: ${{ secrets.CODE_DEPLOY_APP_NAME }}
+  DEPLOYMENT_GROUP_NAME: ${{ secrets.DEPLOYMENT_GROUP_NAME }}    
 
 permissions:
   contents: read
