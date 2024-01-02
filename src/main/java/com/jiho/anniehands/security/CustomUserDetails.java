@@ -79,15 +79,15 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     }
 
     public String getRealName() {
-        return user.getName();  // 네비바에 사용자의 실제 이름을 반환하기 위해 만든 메소드
+        return user.getName();  // 네비바에 사용자의 실제 이름을 반환하기 위해 만든 메소드 Thymeleaf html에서 사용함.
     }
 
-    // 일반 로그인
+    // 일반 로그인 팩토리 메서드
     public static CustomUserDetails create(User user) {
         return new CustomUserDetails(user);
     }
 
-    // 소셜 로그인
+    // 소셜 로그인 펙토리 메서드
     public static CustomUserDetails create(User user, Map<String, Object> attributes) {
         return new CustomUserDetails(user, attributes);
     }
