@@ -7,8 +7,7 @@ files:
     overwrite: yes
 file_exists_behavior: OVERWRITE
 permissions:
-  - object: /
-    pattern: "**"
+  - object: /home/ubuntu/anniehands/
     owner: ubuntu
     group: ubuntu
 hooks:
