@@ -30,9 +30,14 @@ jobs:
         distribution: 'temurin'
 
 # action secret에서 gitignore한 appliction-dev.yml 생성
-    - name: Create application-aws.properties
+    - name: Create application-dev.yml
       run: |
         echo "${{ secrets.APPLICATION_DEV_YML }}" > ./src/main/resources/application-dev.yml
+      shell: bash
+# action secret에서 gitignore한 appliction-auth.yml 생성
+    - name: Create application-auth.yml
+      run: |
+        echo "${{ secrets.APPLICATION_AUTH_YML }}" > ./src/main/resources/application-dev.yml
       shell: bash
 
 # gradlew 실행 권한 부여
