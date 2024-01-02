@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -62,10 +62,4 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UserException(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        return userRepository.findById(id)
-                .map(CustomUserDetails::create)
-                .orElseThrow(() -> new UsernameNotFoundException(id));
-    }
 }
