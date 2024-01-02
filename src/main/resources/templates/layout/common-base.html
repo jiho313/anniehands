@@ -28,8 +28,8 @@
     <!-- content의 head가 자동으로 추가된다. -->
 </head>
 <body>
-<div th:replace="~{/common/navbar :: navbar-fragment}"></div>
-<div th:replace="~{/common/header :: header-fragment}"></div>
+<div th:replace="common/navbar :: navbar-fragment"></div>
+<div th:replace="common/header :: header-fragment"></div>
 <th:block layout:fragment="content-top"></th:block>
 <th:block layout:fragment="content-bottom"></th:block>
 <script crossorigin="anonymous"
