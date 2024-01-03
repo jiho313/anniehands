@@ -37,7 +37,7 @@ jobs:
 # action secret에서 gitignore한 appliction-auth.yml 생성
     - name: Create application-auth.yml
       run: |
-        echo "${{ secrets.APPLICATION_AUTH_YML }}" > ./src/main/resources/application-dev.yml
+        echo "${{ secrets.APPLICATION_AUTH_YML }}" > ./src/main/resources/application-auth.yml
       shell: bash
 
 # gradlew 실행 권한 부여
@@ -47,7 +47,7 @@ jobs:
       
 # 그레이들 빌드 툴로 빌드
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --info
       shell: bash
 
 # 빌드한 파일 zip으로 생성
