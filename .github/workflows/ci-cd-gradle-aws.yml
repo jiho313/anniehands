@@ -30,7 +30,7 @@ jobs:
         distribution: 'temurin'
         
 # action secret에서 gitignore한 appliction.yml 생성
-    - name: Create application-auth.yml
+    - name: Create application.yml
       run: |
         echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
       shell: bash
