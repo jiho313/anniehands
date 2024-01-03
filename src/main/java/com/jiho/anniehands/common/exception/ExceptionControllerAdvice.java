@@ -25,6 +25,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(UserException.class)
     public String memberExceptionHandler(UserException ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        // TODO: 문자열 하드코딩이 아닌, 다양한 요청 url로 리다이렉트 할 수 있도록 고민하기
         return "redirect:/user/signup";
     }
 

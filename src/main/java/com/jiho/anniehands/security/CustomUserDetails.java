@@ -24,11 +24,11 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
         this(user, null);
     }
     
-    // 소셜 로그인 생성자
+    // OAuth 소셜 로그인 생성자
     public CustomUserDetails(User user, Map<String, Object> attributes) {
         this.user = user;
-        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().getRole()));
-        this.attributes = attributes; // OAuth 사용자 속성 ex) 소셜 로그인 경로 등
+        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().name()));
+        this.attributes = attributes; // OAuth 사용자 속성 ex) 소셜에서 제공하는 소셜 정보, 이름, 이메일 정보 등을 담는다.
     }
 
     // OAuth
