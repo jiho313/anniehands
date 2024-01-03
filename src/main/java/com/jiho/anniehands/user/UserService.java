@@ -32,7 +32,7 @@ public class UserService {
                 .password(encryptedPassword)
                 .tel(userForm.getTel())
                 .birthdate(userForm.getBirth())
-                .loginInfo(UserLoginInfo.ANNIEHANDS)
+                .loginInfo(UserLoginType.ANNIEHANDS)
                 .role(Role.ROLE_USER)
                 .build();
     }

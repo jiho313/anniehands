@@ -5,7 +5,7 @@ import com.jiho.anniehands.security.oauth2.loginInfo.SocialLoginInfo;
 import com.jiho.anniehands.security.oauth2.loginInfo.SocialLoginInfoFactory;
 import com.jiho.anniehands.user.Role;
 import com.jiho.anniehands.user.User;
-import com.jiho.anniehands.user.UserLoginInfo;
+import com.jiho.anniehands.user.UserLoginType;
 import com.jiho.anniehands.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,20 +31,27 @@ public class CustomOatuh2UserService extends DefaultOAuth2UserService {
         String provider = userRequest.getClientRegistration().getRegistrationId().toUpperCase();
         SocialLoginInfo loginInfo = SocialLoginInfoFactory.getSocialLoginInfo(provider, oAuth2User.getAttributes());
         String loginId = provider + "_" + loginInfo.getId();
-        UserLoginInfo userLoginInfo = UserLoginInfo.valueOf(provider);
+        UserLoginType userLoginType = UserLoginType.valueOf(provider);
 
-        Optional<User> optionalUser = userRepository.findById(loginId);
-        User user = optionalUser.orElseGet(() -> {
-            User newUser = User.builder()
-                    .id(loginId)
-                    .name(loginInfo.getName())
-                    .email(loginInfo.getEmail())
-                    .loginInfo(userLoginInfo)
-                    .role(Role.ROLE_USER)
-                    .build();
-            userRepository.save(newUser);
-            return newUser;
-        });
+        User user = findOrCreateUser(loginId, loginInfo, userLoginType);
         return CustomUserDetails.create(user, oAuth2User.getAttributes());
+    }
+    
+    // 저장된 유저를 찾거나 없으면 만들어 저장한다.
+    private User findOrCreateUser(String loginId, SocialLoginInfo loginInfo, UserLoginType userLoginType) {
+        return userRepository.findById(loginId)
+                .orElseGet(() -> createUser(loginId, loginInfo, userLoginType));
+    }
+
+    // 유저 생성 메소드
+    private User createUser(String loginId, SocialLoginInfo loginInfo, UserLoginType userLoginType) {
+        User newUser = User.builder()
+                .id(loginId)
+                .name(loginInfo.getName())
+                .email(loginInfo.getEmail())
+                .loginInfo(userLoginType)
+                .role(Role.ROLE_USER)
+                .build();
+        return userRepository.save(newUser);
     }
 }
