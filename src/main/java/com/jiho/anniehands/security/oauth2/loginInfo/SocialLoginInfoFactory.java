@@ -14,6 +14,8 @@ public class SocialLoginInfoFactory {
                 return new GoogleLoginInfo(attributes);
             case "KAKAO" :
                 return new KakaoLoginInfo(attributes);
+            case "NAVER" :
+                return new NaverLoginInfo(attributes);
             default:
                 throw new IllegalArgumentException(provider);
         }
