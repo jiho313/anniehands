@@ -37,7 +37,7 @@ class AnniehandsApplicationTests {
 
 	@Test
 	void enumTest() {
-		assertThat(Role.ROLE_ADMIN.getRole()).isEqualTo("ROLE_ADMIN");
+		assertThat(Role.ROLE_ADMIN.name()).isEqualTo("ROLE_ADMIN");
 		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getCode()).isEqualTo("400");
 		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()).isEqualTo("없는 회원입니다.");
 	}
