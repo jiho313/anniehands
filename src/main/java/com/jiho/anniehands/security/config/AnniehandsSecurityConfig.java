@@ -1,5 +1,6 @@
-package com.jiho.anniehands.security;
+package com.jiho.anniehands.security.config;
 
+import com.jiho.anniehands.security.oauth2.CustomOatuh2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ public class AnniehandsSecurityConfig {
                         .passwordParameter("password")       // 로그인 폼의 사용자 비밀번호 필드 이름
                         .loginProcessingUrl("/login")         // 로그인 처리 url
                         .defaultSuccessUrl("/")               // 로그인 성공 시 리다이렉트 url
-                        .failureUrl("/login?error=fail")) // 로그인 실패 시 리다이렉트 url
+                        .failureUrl("/user/login?error=fail")) // 로그인 실패 시 리다이렉트 url
                 // 로그아웃 관련 설정
                 .logout(logoutConfigurer -> logoutConfigurer
                         .logoutUrl("/logout")                       // 로그아웃 처리 url
@@ -47,7 +48,7 @@ public class AnniehandsSecurityConfig {
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .loginPage("/login")
                         .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=fail")
+                        .failureUrl("/user/login?error=fail")
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOatuh2UserService)))
                 // 인증인가 관련 예외 처리 설정

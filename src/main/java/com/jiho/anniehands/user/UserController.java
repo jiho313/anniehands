@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginForm() {
+        // TODO: 사용자 정보 없을 시 에러 메시지
         return "page/user/login";
     }
 
