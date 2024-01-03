@@ -28,7 +28,12 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
+        
+# action secret에서 gitignore한 appliction.yml 생성
+    - name: Create application-auth.yml
+      run: |
+        echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
+      shell: bash
 # action secret에서 gitignore한 appliction-dev.yml 생성
     - name: Create application-dev.yml
       run: |
@@ -39,6 +44,7 @@ jobs:
       run: |
         echo "${{ secrets.APPLICATION_AUTH_YML }}" > ./src/main/resources/application-auth.yml
       shell: bash
+
 
 # gradlew 실행 권한 부여
     - name: Grant execute permission for gradlew
