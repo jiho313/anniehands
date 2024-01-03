@@ -17,7 +17,7 @@ public class SocialLoginInfoFactory {
             case "NAVER" :
                 return new NaverLoginInfo(attributes);
             default:
-                throw new IllegalArgumentException(provider);
+                throw new IllegalArgumentException("올바른 공급자( "+provider+" )가 아닙니다.");
         }
     }
 }
