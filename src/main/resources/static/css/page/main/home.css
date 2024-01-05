@@ -38,8 +38,12 @@
     object-fit: cover;
 }
 
+.best-item, .new-item {
+    width: 20%;
+}
+
 .separator {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    }
+}
