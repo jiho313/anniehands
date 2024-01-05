@@ -1,0 +1,155 @@
+<html layout:decorate="~{layout/common-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/product/list.css}">
+</head>
+<!-- 고유 content -->
+<div class="container" layout:fragment="content-top">
+    <h3 class="my-3">강아지</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">주식</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">간식</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">건강보조제</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">패션</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <select class="form-select me-3" name="sort" style="width: 150px;">
+                        <option value="latest">신상품
+                        </option>
+                        <option value="oldest">낮은 가격
+                        </option>
+                        <option value="popular">높은 가격
+                        </option>
+                        <option value="popular">인기 상품
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 인기 상품 -->
+    <div class="best-container my-3">
+        <div class="row row-custom">
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title separator">강아지 패딩</h5>
+                        <p class="card-text">37,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">캣잎</h5>
+                        <p class="card-text price">13,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">캣잎</h5>
+                        <p class="card-text">13,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">츄르 1box</h5>
+                        <p class="card-text">28,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">츄르 1box</h5>
+                        <p class="card-text">28,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">츄르 1box</h5>
+                        <p class="card-text">28,000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto product-item mb-5">
+                <div class="card">
+                    <img alt="상품 이미지" class="card-img-top" src="/images/home-image1.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">츄르 1box</h5>
+                        <p class="card-text">28,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="" style="background-color: white;">
+        <div>
+            <div>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i
+                                class="fa-solid fa-angles-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i
+                                class="fa-solid fa-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i
+                                class="fa-solid fa-chevron-right"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i
+                                class="fa-solid fa-angles-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+    <div layout:fragment="content-bottom">
+        <div class="modal">
+            <h1>modal영역</h1>
+        </div>
+    </div>
+    <!-- 고유 script -->
+    <th:block layout:fragment="script">
+        <script></script>
+    </th:block>
+</html>

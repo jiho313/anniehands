@@ -1,0 +1,17 @@
+.card-header {
+    background-color: rgb(237, 246, 255);
+}
+.card-img-top {
+    height: 270px;
+    object-fit: cover;
+}
+
+.product-item {
+    width: 25%;
+}
+
+.separator {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
