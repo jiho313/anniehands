@@ -24,11 +24,11 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
         this(user, null);
     }
     
-    // 소셜 로그인 생성자
+    // OAuth 소셜 로그인 생성자
     public CustomUserDetails(User user, Map<String, Object> attributes) {
         this.user = user;
-        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().getRole()));
-        this.attributes = attributes; // OAuth 사용자 속성 ex) 소셜 로그인 경로 등
+        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().name()));
+        this.attributes = attributes; // OAuth 사용자 속성 ex) 소셜에서 제공하는 소셜 정보, 이름, 이메일 정보 등을 담는다.
     }
 
     // OAuth
@@ -79,15 +79,15 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     }
 
     public String getRealName() {
-        return user.getName();  // 네비바에 사용자의 실제 이름을 반환하기 위해 만든 메소드
+        return user.getName();  // 네비바에 사용자의 실제 이름을 반환하기 위해 만든 메소드 Thymeleaf html에서 사용함.
     }
 
-    // 일반 로그인
+    // 일반 로그인 팩토리 메서드
     public static CustomUserDetails create(User user) {
         return new CustomUserDetails(user);
     }
 
-    // 소셜 로그인
+    // 소셜 로그인 펙토리 메서드
     public static CustomUserDetails create(User user, Map<String, Object> attributes) {
         return new CustomUserDetails(user, attributes);
     }

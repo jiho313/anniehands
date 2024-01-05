@@ -1,19 +1,15 @@
 package com.jiho.anniehands.user;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
-import com.jiho.anniehands.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -36,7 +32,7 @@ public class UserService implements UserDetailsService {
                 .password(encryptedPassword)
                 .tel(userForm.getTel())
                 .birthdate(userForm.getBirth())
-                .loginInfo(UserLoginInfo.ANNIEHANDS)
+                .loginInfo(UserLoginType.ANNIEHANDS)
                 .role(Role.ROLE_USER)
                 .build();
     }
@@ -62,10 +58,4 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UserException(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        return userRepository.findById(id)
-                .map(CustomUserDetails::create)
-                .orElseThrow(() -> new UsernameNotFoundException(id));
-    }
 }
