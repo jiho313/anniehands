@@ -4,7 +4,18 @@
 <!-- 고유 CSS -->
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/page/main/home.css}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var errorMessage = [[${errorMessage}]];
+        if(errorMessage) {
+            window.onload = function() {
+                alert(errorMessage);
+            };
+        }
+        /*]]>*/
+    </script>
 </head>
+
 <!-- 고유 content -->
 
 <!-- 슬라이드 시작 -->
@@ -36,51 +47,37 @@
     <div class="product-category">
         <div class="category-container py-3">
             <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list" >
+                <a class="text-black text-decoration-none" th:href="@{/product/list?categoryNo=}" >
                     <strong>
-                        <span>베스트</span>
+                        <h4 class="mt-2">베스트</h4>
                     </strong>
                 </a>
             </div>
             <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
+                <a class="text-black text-decoration-none" th:href="@{/product/list?categoryNo=100}">
                     <strong>
-                        <span>강아지</span>
+                        <h4 class="mt-2">강아지</h4>
                     </strong>
                 </a>
             </div>
             <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
+                <a class="text-black text-decoration-none" th:href="@{/product/list?categoryNo=200}">
                     <strong>
-                        <span>고양이</span>
+                        <h4 class="mt-2">고양이</h4>
                     </strong>
                 </a>
             </div>
             <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
+                <a class="text-black text-decoration-none" th:href="@{/product/list?categoryNo=}">
                     <strong>
-                        <span>주식</span>
+                        <h4 class="mt-2">실종게시판</h4>
                     </strong>
                 </a>
             </div>
             <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
+                <a class="text-black text-decoration-none" th:href="@{/product/list?categoryNo=}">
                     <strong>
-                        <span>간식</span>
-                    </strong>
-                </a>
-            </div>
-            <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
-                    <strong>
-                        <span>건강보조제</span>
-                    </strong>
-                </a>
-            </div>
-            <div class="category-item item">
-                <a class="text-black text-decoration-none" href="/product/list">
-                    <strong>
-                        <span>패션</span>
+                        <h4 class="mt-2">입양게시판</h4>
                     </strong>
                 </a>
             </div>
