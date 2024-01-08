@@ -22,10 +22,7 @@ class CategoryServiceTest {
 //        categoryService.getCategoryInfo(categoryNo, pageable);
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("First Method Execution Time: " + (endTime - startTime) + " ms");
-//
-//
 //    }
-
 
 //    @Test
 //    public void testGetCategoryInfoSecondMethod() {
@@ -38,8 +35,5 @@ class CategoryServiceTest {
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("Second Method Execution Time: " + (endTime - startTime) + " ms");
 //    }
-//
-
-
 
 }
