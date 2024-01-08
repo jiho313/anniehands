@@ -36,6 +36,9 @@
 
     <div class="best-container my-3">
         <div class="row row-custom">
+            <div th:if="${#lists.isEmpty(categoryResult.products.content)}" class="col-12 text-center">
+                <h4 colspan="5" class="text-center">현재 상품이 존재하지 않습니다.</h4>
+            </div>
             <div class="col-auto product-item mb-5" th:each="product : ${categoryResult.products}">
                 <div class="card">
                     <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
@@ -61,7 +64,7 @@
                         <a class="page-link" th:href="@{/product/list(categoryNo=${categoryResult.no}, page=0, size=${pageable.pageSize}, sort=${sortString})}"><i
                                 class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li th:each="pageNum : ${#numbers.sequence(startPage, endPage)}" th:classappend="${pageable.pageNumber == pageNum} ? 'active' : ''"class="page-item">
+                    <li th:if="${totalPages > 0}" th:each="pageNum : ${#numbers.sequence(startPage, endPage)}" th:classappend="${pageable.pageNumber == pageNum} ? 'active' : ''"class="page-item">
                         <a th:href="@{/product/list(categoryNo=${categoryResult.no}, page=${pageNum}, size=${pageable.pageSize}, sort=${sortString})}" class="page-link" th:text="${pageNum + 1}"></a>
                     </li>
                     <li class="page-item">
