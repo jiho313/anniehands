@@ -1,7 +1,4 @@
-package com.jiho.anniehands.user;
-
-import com.jiho.anniehands.common.exception.AnnieHandsException;
-import com.jiho.anniehands.common.exception.CustomErrorCode;
+package com.jiho.anniehands.common.exception;
 
 public class UserException extends AnnieHandsException {
     public UserException(CustomErrorCode errorCode) {

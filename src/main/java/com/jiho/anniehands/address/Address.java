@@ -33,7 +33,7 @@ public class Address {
     @Column(name = "is_default", nullable = false)
     private boolean isDefault;
 
-    // 연관 관계 매핑 (User 엔티티가 있다고 가정)
+    // 연관 관계 매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no")
     private User user;

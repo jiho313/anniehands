@@ -17,8 +17,9 @@ public class ProductService {
     }
 
     // 신상품 5개 조회
-    public List<Product> getTop5NewProducts() {
-        return this.productRepository.findTop5ByIsEnabledOrderByCreatedDateDesc(true);
+    public List<ProductDto> getTop5NewProducts() {
+        return productRepository.findTop5ByIsEnabledOrderByCreatedDateDesc(true).stream()
+                .map(ProductDto::createDto).toList();
     }
 
 

@@ -1,6 +1,7 @@
 package com.jiho.anniehands.user;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
+import com.jiho.anniehands.common.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +38,6 @@ public class UserService {
                 .build();
     }
 
-
     // 아이디 혹은 이메일 중복 검사
     private void validateDuplicateUser(User user) {
         userRepository.findById(user.getId()).ifPresent(u -> {
@@ -46,16 +46,6 @@ public class UserService {
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
             throw new UserException(CustomErrorCode.DUPLICATE_EMAIL);
         });
-    }
-
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserException(CustomErrorCode.NO_MATCHING_MEMBER));
-    }
-
-    public User findById(String id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserException(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()));
     }
 
 }
