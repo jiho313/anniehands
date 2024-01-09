@@ -2,6 +2,7 @@ package com.jiho.anniehands;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
 import com.jiho.anniehands.product.Product;
+import com.jiho.anniehands.product.ProductDto;
 import com.jiho.anniehands.product.ProductService;
 import com.jiho.anniehands.user.Role;
 import com.jiho.anniehands.user.UserRepository;
@@ -31,7 +32,7 @@ class AnniehandsApplicationTests {
 
 	@Test
 	void get5NewProducts() {
-		List<Product> products = productService.getTop5NewProducts();
+		List<ProductDto> products = productService.getTop5NewProducts();
 		assertThat(products).hasSize(5);
 	}
 

@@ -1,6 +1,7 @@
 package com.jiho.anniehands.main;
 
 import com.jiho.anniehands.product.Product;
+import com.jiho.anniehands.product.ProductDto;
 import com.jiho.anniehands.product.ProductService;
 import com.jiho.anniehands.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class MainController {
     @GetMapping("/")
     public String home(@AuthenticationPrincipal CustomUserDetails loginUser, Model model) {
         // TODO: 현재 인기상품은 더미 데이터 사용 중 적절한 인기 제품 기준 할당 후 뷰에 출력하기
-        List<Product> products = this.productService.getTop5NewProducts();
+        List<ProductDto> products = productService.getTop5NewProducts();
         model.addAttribute("products", products);
         if (loginUser != null) {
             log.info("현재 로그인된 유저 ====> {}", loginUser.toString());
