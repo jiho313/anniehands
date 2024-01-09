@@ -22,6 +22,7 @@
 ### 1. **GitHub Actions와 AWS를 활용한 CI/CD 도입**
 <details>
 <summary>클릭하고 더 자세히 보기!</summary>
+	
 ### **[상황설명]**
 
 1. 기존에 스프링 부트 애플리케이션인 ‘AnnieHands’는 EC2를 main brach에 변화가 있을 때마다 git clone을 하여 새로 테스트 및 빌드하여 배포하고 있었음.
