@@ -21,12 +21,11 @@
                 <div class="d-flex">
                     <select onchange="changeSortOrder(this.value)" class="form-select me-3" name="sort"
                             style="width: 150px;">
-                        <option value="createdDate DESC"
-                                th:selected="${sort == 'createdDate' && direction == 'DESC'}">신상품순
+                        <option value="createdDate,DESC" th:selected="${sortString == 'createdDate,ASC'}">신상품순
                         </option>
-                        <option value="sale ASC" th:selected="${sort == 'sale' && direction == 'ASC'}">낮은 가격순
+                        <option value="sale,ASC" th:selected="${sortString == 'sale,ASC'}">낮은 가격순
                         </option>
-                        <option value="sale DESC" th:selected="${sort == 'sale' && direction == 'DESC'}">높은 가격순
+                        <option value="sale,DESC" th:selected="${sortString == 'sale,DESC'}">높은 가격순
                         </option>
                     </select>
                 </div>
