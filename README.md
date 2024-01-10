@@ -1,6 +1,10 @@
 ![reversal](https://capsule-render.vercel.app/api?type=rect&text=AnnieHands!&textBg=true&color=gradient&fontAlign=30&fontSize=30&desc=손을%20잡아주세요.&descAlign=60&descAlignY=50)
 ## 🔍 프로젝트 설명
 - 배포 링크➡️ [**https://anniehands.co.kr**](https://anniehands.co.kr)
+- 테스트 계정
+  - 일반 유저
+  - ID: test
+  - PASSWORD: 1234
 - 개인 프로젝트로 Back/FrontEnd 개발을 주도하고, AWS를 활용하여 CI/CD와 DataBase 등 Infra를 구축한 프로젝트
 - 반려동물 용품을 판매하는 쇼핑몰에 실종 및 입양 게시판을 추가하여, 반려동물 커뮤니티의 특성을 결합한 웹 애플리케이션
 - 개발 중인 애플리케이션으로 지속적으로 업데이트 중 ⚙️
@@ -18,7 +22,6 @@
 | 🔧 Tools | ![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github) ![GitHubActions](https://img.shields.io/badge/GitHubActions-2088FF?style=flat&logo=githubactions&logoColor=white) ![IntelliJ](https://img.shields.io/badge/IntelliJ-100000?style=flat&logo=intellijidea) |
 
 ## 🌱 트러블 슈팅 및 성장내용
-❗각 목차 클릭시 더 자세히 보기로 이동!
 ### 1. **GitHub Actions와 AWS를 활용한 CI/CD 도입**
 <details>
 <summary>클릭하고 더 자세히 보기!</summary>
