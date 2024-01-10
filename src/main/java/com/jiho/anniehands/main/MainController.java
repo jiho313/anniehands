@@ -1,6 +1,7 @@
 package com.jiho.anniehands.main;
 
-import com.jiho.anniehands.product.Product;
+import com.jiho.anniehands.common.exception.CustomErrorCode;
+import com.jiho.anniehands.common.exception.PageException;
 import com.jiho.anniehands.product.ProductDto;
 import com.jiho.anniehands.product.ProductService;
 import com.jiho.anniehands.security.CustomUserDetails;
@@ -29,6 +30,11 @@ public class MainController {
             log.info("현재 로그인된 유저 ====> {}", loginUser.toString());
         }
         return "page/main/home";
+    }
+
+    @GetMapping("/incomplete-url")
+    public void incompleteUrl() {
+        throw new PageException(CustomErrorCode.INCOMPLETE_PAGE);
     }
 
 }
