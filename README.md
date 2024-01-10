@@ -10,8 +10,6 @@
 - 개발 중인 애플리케이션으로 지속적으로 업데이트 중 ⚙️
 ### 시스템 아키텍쳐
 ![시스템 아키텍쳐](https://github.com/jiho313/anniehands/assets/130119257/26d524c4-d236-4c2d-a1c9-277cfcf0ee0f)
-### ERD
-![erd](https://github.com/jiho313/anniehands/assets/130119257/23db9dd5-5827-401f-91a2-de172f3150e3)
 ## 🛠️사용기술
 |영역|기술|
 | --- | --- |
@@ -66,8 +64,7 @@
 - 🔴 CI/CD 도입 전 수동 배포 과정
 ![Manual Deployment](https://github.com/jiho313/anniehands/assets/130119257/061ee078-ce9e-4c21-b421-53fbf7a3ebcd)
 - 🔵 CI/CD 도입 후 자동화 된 빌드/배포
-![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/acb8c2d6-2490-478f-8943-b2699f575b00)
-
+![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/287397b0-bd80-4e51-9fe5-928a9546e523)
 ### 2. **AOP 개념을 활용한 `@ControllerAdivce` 중앙집중식 예외 처리**
 <details>
 <summary>클릭하고 더 자세히 보기!</summary>
