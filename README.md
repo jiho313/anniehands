@@ -6,7 +6,7 @@
   - ID: test
   - PASSWORD: 1234
 - 개인 프로젝트로 Back/FrontEnd 개발을 주도하고, AWS를 활용하여 CI/CD와 DataBase 등 Infra를 구축한 프로젝트
-- 반려동물 용품을 판매하는 쇼핑몰에 실종 게시판을 추가하여, 유기동물 케어 커뮤니티의 특성을 결합한 웹 애플리케이션
+- 반려동물 용품을 판매하는 쇼핑몰에 실종 및 입양 게시판을 추가하여, 반려동물 커뮤니티의 특성을 결합한 웹 애플리케이션
 - 개발 중인 애플리케이션으로 지속적으로 업데이트 중 ⚙️
 ### 시스템 아키텍쳐
 ![시스템 아키텍쳐](https://github.com/jiho313/anniehands/assets/130119257/26d524c4-d236-4c2d-a1c9-277cfcf0ee0f)
@@ -52,8 +52,7 @@
     6. `deploy.sh`에 정의된 절차에 따라 아티팩트가 업로드된 EC2 경로를 찾아 배포 수행함.
 2. 이로 인해 더 이상 main branch가 업데이트될 때마다 수동으로 clone과 배포 작업을 할 필요가 없어짐.
 3. 테스트 및 빌드가 정상적으로 완료됐을 때 자동으로 EC2에 배포 과정을 수행하므로 지속적 배포가 가능해졌음.
-
-![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/acb8c2d6-2490-478f-8943-b2699f575b00)
+![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/b3473562-d6f8-45b7-83dd-0894c8e8699d)
 
 ### **[깨달은 점]**
 
@@ -66,7 +65,8 @@
 - 🔴 CI/CD 도입 전 수동 배포 과정
 ![Manual Deployment](https://github.com/jiho313/anniehands/assets/130119257/061ee078-ce9e-4c21-b421-53fbf7a3ebcd)
 - 🔵 CI/CD 도입 후 자동화 된 빌드/배포
-![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/287397b0-bd80-4e51-9fe5-928a9546e523)
+![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/0e84c13c-89e4-4591-a7cd-cd4b304b93d8)
+
 ### 2. **AOP 개념을 활용한 `@ControllerAdivce` 중앙집중식 예외 처리**
 <details>
 <summary>클릭하고 더 자세히 보기!</summary>
