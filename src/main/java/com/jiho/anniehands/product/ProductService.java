@@ -12,8 +12,9 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // 상품 번호로 상품조회
-    public Product getProductByNo(Long no) {
-        return this.productRepository.findByNo(no);
+    public ProductDto getProductByNo(Long no) {
+        ProductDto productDto = ProductDto.createDto(productRepository.findByNo(no));
+        return productDto;
     }
 
     // 신상품 5개 조회
