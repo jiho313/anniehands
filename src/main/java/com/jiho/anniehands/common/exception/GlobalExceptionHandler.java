@@ -7,7 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionControllerAdvice {
+public class GlobalExceptionHandler {
 
     // MemberException 대한 핸들러
     // 이 메서드는 @Valid 어노테이션을 사용한 유효성 검사에서 예외가 발생했을 때 실행된다.

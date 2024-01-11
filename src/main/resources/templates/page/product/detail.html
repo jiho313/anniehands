@@ -1,0 +1,161 @@
+<html layout:decorate="~{layout/common-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/product/detail.css}">
+</head>
+<!-- 고유 content -->
+<div class="container" layout:fragment="content-top">
+    <div class="card border-light mt-2">
+        <div class="row">
+            <div class="col">
+                <img src="/images/product-thumbnail.jpg" class="product-image">
+            </div>
+            <div class="col">
+                <div class="card-body my-5">
+                    <h3 class="card-title">상품이름</h3>
+                    <p class="card-text">상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품
+                        상세 설명입니다.
+                        상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세
+                        설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.
+                    </p>
+                    <p class="card-text">판매가 <span>25,000</span></p>
+                    <p class="card-text">할인가 <span>19,000</span></p>
+                    <p class="card-text">배송비 <span>2,500</span></p>
+                    <div class="row">
+                        <table class="table">
+                            <colgroup>
+                                <col width="65%">
+                                <col width="15%">
+                                <col width="20%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>수량</th>
+                                <th>가격</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>상품이름상상상상품이름품이름품이름품이름</td>
+                                <td><input class="form-control form-control-sm" type="number" min="1" max="100" style="width: 55px;"></td>
+                                <td>1,119,000</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="justify-content-end row  mt-2">
+                            <button type="button" style="width: 50%;" class="btn btn-outline-success">장바구니 담기</button>
+                            <button type="button" style="width: 50%;" class="btn btn-outline-primary">구매하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-light  mx-4">
+        <div class="card-header mt-3">
+            <h3 class="" style="text-align: center;">상품상세</h3>
+        </div>
+        <div class="card-body">
+            <div class="product-detail-image">
+                <img src="/images/product-thumbnail.jpg" class="product-image">
+            </div>
+            <div class="product-detail-image">
+                <img src="/images/product-thumbnail.jpg" class="product-image">
+            </div>
+            <div class="product-detail-image">
+                <img src="/images/product-thumbnail.jpg" class="product-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-light review-div">
+        <div class="card-header">
+            <h3 class="" style="text-align: center;">리뷰</h3>
+        </div>
+        <table class="table">
+            <colgroup>
+                <col width="90%">
+                <col width="10%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="card border-light review-div">
+        <div class="card-header">
+            <h3 class="" style="text-align: center;">문의</h3>
+        </div>
+        <table class="table">
+            <colgroup>
+                <col width="90%">
+                <col width="10%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            <tr>
+                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+                <td>2024.01.01</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+<div layout:fragment="content-bottom">
+    <div class="modal">
+        <h1>modal영역</h1>
+    </div>
+</div>
+<!-- 고유 script -->
+<th:block layout:fragment="script">
+    <script></script>
+</th:block>
+</html>

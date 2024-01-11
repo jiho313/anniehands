@@ -74,13 +74,6 @@
                     </strong>
                 </a>
             </div>
-            <div class="category-item item">
-                <a class="text-black text-decoration-none" th:href="@{/incomplete-url}">
-                    <strong>
-                        <h4 class="mt-2">입양게시판</h4>
-                    </strong>
-                </a>
-            </div>
         </div>
     </div>
 
@@ -90,48 +83,18 @@
             <h2>이 상품 지금 HOT해요!</h2>
         </div>
         <div class="row row-custom">
-            <div class="col-auto best-item">
+            <div class="col-auto new-item" th:each="product : ${products}">
                 <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
+                    <a th:href="@{/product/detail/{productNo}(productNo=${product.no})}">
+                        <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
+                    </a>
                     <div class="card-body">
-                        <h5 class="card-title separator">뼈 튼튼 사료</h5>
-                        <p class="card-text">25,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto best-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title separator">강아지 패딩</h5>
-                        <p class="card-text">37,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto best-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">캣잎</h5>
-                        <p class="card-text">13,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto best-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">캣잎</h5>
-                        <p class="card-text">13,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto best-item">
-                <div class="card">
-                    <img src="/images/home-image1.jpg" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">츄르 1box</h5>
-                        <p class="card-text">28,000</p>
+                        <h5 class="card-title" th:text="${product.name}">상품명</h5>
+                        <p class="card-text">
+                            <span th:if="${product.sale < product.price}" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + '원'">가격</span>
+                            <span th:if="${product.sale < product.price}" class="fw-bold" style="color: red; margin-left: 10px;" th:text="${#numbers.formatInteger(product.sale, 0, 'COMMA')} + '원'">세일 가격</span>
+                            <span th:unless="${product.sale < product.price}"  th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + '원'">가격</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -146,7 +109,9 @@
         <div class="row row-custom">
             <div class="col-auto new-item" th:each="product : ${products}">
                 <div class="card">
-                    <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
+                    <a th:href="@{/product/detail/{productNo}(productNo=${product.no})}">
+                        <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.name}">상품명</h5>
                         <p class="card-text">
