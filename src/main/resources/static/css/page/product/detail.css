@@ -1,0 +1,19 @@
+.product-image {
+    width: 100%;
+    height: 100%;
+}
+
+.table {
+width: 97%; /* 테이블의 너비를 부모 요소의 100%로 설정 */
+max-width: 97%; /* 테이블의 최대 너비를 제한 */
+}
+
+.product-detail-image {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 50px;
+}
+
+.card-header {
+    background-color: rgb(237, 246, 255);
+}

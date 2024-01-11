@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,6 +39,13 @@ public class ProductController {
         }
         prepareModel(pageable, model, categoryResult);
         return "page/product/list";
+    }
+
+    @GetMapping("/detail/{no}")
+    public String detail(@PathVariable Long no, Model model) {
+        ProductDto productDto = productService.getProductByNo(no);
+        model.addAttribute("product", productDto);
+        return "page/product/detail";
     }
 
     private void prepareModel(Pageable pageable, Model model, CategoryResult categoryResult) {
