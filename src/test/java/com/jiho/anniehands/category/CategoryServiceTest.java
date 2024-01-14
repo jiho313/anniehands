@@ -12,17 +12,17 @@ class CategoryServiceTest {
     @Autowired
     private CategoryService categoryService;
 
-//    @Test
-//    public void testGetCategoryInfoFirstMethod() {
-//        Integer categoryNo = 100; // 테스트용 카테고리 번호
-//        Pageable pageable = PageRequest.of(0, 20);
-//
-//        // 첫 번째 방법 테스트
-//        long startTime = System.currentTimeMillis();
-//        categoryService.getCategoryInfo(categoryNo, pageable);
-//        long endTime = System.currentTimeMillis();
-//        System.out.println("First Method Execution Time: " + (endTime - startTime) + " ms");
-//    }
+    @Test
+    public void testGetCategoryInfoFirstMethod() {
+        Integer categoryNo = 100; // 테스트용 카테고리 번호
+        Pageable pageable = PageRequest.of(0, 20);
+
+        // 첫 번째 방법 테스트
+        long startTime = System.currentTimeMillis();
+        categoryService.getCategoryInfo(categoryNo, pageable);
+        long endTime = System.currentTimeMillis();
+        System.out.println("First Method Execution Time: " + (endTime - startTime) + " ms");
+    }
 
 //    @Test
 //    public void testGetCategoryInfoSecondMethod() {
