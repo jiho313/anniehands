@@ -14,12 +14,12 @@ public class ProductDto {
     private Integer price;
     private Integer sale;
 
-    public static ProductDto createDto(Product product) {
+    public static ProductDto createDto(Product product, String s3BasePath) {
         return ProductDto.builder()
                 .no(product.getNo())
                 .name(product.getName())
                 .content(product.getContent())
-                .thumbnailPath(product.getThumbnailPath())
+                .thumbnailPath(s3BasePath + product.getThumbnailPath())
                 .price(product.getPrice())
                 .sale(product.getSale())
                 .build();
