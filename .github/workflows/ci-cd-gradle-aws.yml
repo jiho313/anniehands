@@ -46,7 +46,7 @@ jobs:
       shell: bash
 
 # action secret에서 gitignore한 appliction-aws.yml 생성
-    - name: Create application-auth.yml
+    - name: Create application-aws.yml
       run: |
         echo "${{ secrets.APPLICATION_AWS_YML }}" > ./src/main/resources/application-aws.yml
       shell: bash
