@@ -26,7 +26,7 @@ class AnniehandsApplicationTests {
 	void getProductByNo() {
 		ProductDto product = productService.getProductByNo(19L);
 
-		assertThat(product.getName()).isEqualTo("103 1 인기상품에 올라갈 테스트 상품");
+		assertThat(product.getName()).isEqualTo("103 건강보조제!");
 		System.out.println("product = " + product);
 	}
 
