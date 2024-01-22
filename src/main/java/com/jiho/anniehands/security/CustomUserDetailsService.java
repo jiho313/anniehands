@@ -1,6 +1,6 @@
 package com.jiho.anniehands.security;
 
-import com.jiho.anniehands.user.UserRepository;
+import com.jiho.anniehands.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

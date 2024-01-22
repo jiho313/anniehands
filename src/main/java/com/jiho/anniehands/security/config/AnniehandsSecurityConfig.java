@@ -25,6 +25,7 @@ public class AnniehandsSecurityConfig {
      * */
 
     private final CustomOatuh2UserService customOatuh2UserService;
+    private static final String LOGIN_URL = "/login";
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,10 +34,10 @@ public class AnniehandsSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 // 폼 로그인 관련 설정
                 .formLogin(formLoginConfigurer -> formLoginConfigurer
-                        .loginPage("/login")                        // 사용자 정의 로그인 페이지
+                        .loginPage(LOGIN_URL)                        // 사용자 정의 로그인 페이지
                         .usernameParameter("id")             // 로그인 폼의 사용자 id필드 이름
                         .passwordParameter("password")       // 로그인 폼의 사용자 비밀번호 필드 이름
-                        .loginProcessingUrl("/login")         // 로그인 처리 url
+                        .loginProcessingUrl(LOGIN_URL)         // 로그인 처리 url
                         .defaultSuccessUrl("/")               // 로그인 성공 시 리다이렉트 url
                         .failureUrl("/user/login?error=fail")) // 로그인 실패 시 리다이렉트 url
                 // 로그아웃 관련 설정
@@ -46,7 +47,7 @@ public class AnniehandsSecurityConfig {
                         .invalidateHttpSession(true))      // 로그아웃 시 세션 파괴
                 // OAuth 로그인 관련 설정
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .loginPage("/login")
+                        .loginPage(LOGIN_URL)
                         .defaultSuccessUrl("/")
                         .failureUrl("/user/login?error=fail")
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig

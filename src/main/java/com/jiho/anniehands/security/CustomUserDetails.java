@@ -1,6 +1,6 @@
 package com.jiho.anniehands.security;
 
-import com.jiho.anniehands.user.User;
+import com.jiho.anniehands.domain.user.User;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +17,6 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     private User user;
     private Collection<GrantedAuthority> authorities;
     private Map<String, Object> attributes;
-
 
     // 일반 로그인 생성자
     public CustomUserDetails(User user) {
