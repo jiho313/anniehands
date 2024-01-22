@@ -1,12 +1,12 @@
 package com.jiho.anniehands.security.oauth2;
 
 import com.jiho.anniehands.security.CustomUserDetails;
-import com.jiho.anniehands.security.oauth2.loginInfo.SocialLoginInfo;
-import com.jiho.anniehands.security.oauth2.loginInfo.SocialLoginInfoFactory;
-import com.jiho.anniehands.user.Role;
-import com.jiho.anniehands.user.User;
-import com.jiho.anniehands.user.UserLoginType;
-import com.jiho.anniehands.user.UserRepository;
+import com.jiho.anniehands.security.oauth2.logininfo.SocialLoginInfo;
+import com.jiho.anniehands.security.oauth2.logininfo.SocialLoginInfoFactory;
+import com.jiho.anniehands.domain.user.Role;
+import com.jiho.anniehands.domain.user.User;
+import com.jiho.anniehands.domain.user.UserLoginType;
+import com.jiho.anniehands.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

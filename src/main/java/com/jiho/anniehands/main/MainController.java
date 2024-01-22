@@ -2,8 +2,8 @@ package com.jiho.anniehands.main;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
 import com.jiho.anniehands.common.exception.PageException;
-import com.jiho.anniehands.product.ProductDto;
-import com.jiho.anniehands.product.ProductService;
+import com.jiho.anniehands.domain.product.ProductDto;
+import com.jiho.anniehands.domain.product.ProductService;
 import com.jiho.anniehands.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
