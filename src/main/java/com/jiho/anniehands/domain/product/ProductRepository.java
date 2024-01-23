@@ -23,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT DISTINCT p " +
             "FROM Product p " +
             "LEFT JOIN FETCH p.images " +
-            "LEFT JOIN p.productOptions po " +
+            "LEFT JOIN FETCH p.productOptions po " +
+            "LEFT JOIN FETCH po.option " +
             "WHERE p.no = :no")
     Optional<Product> findByNo(@Param("no") Long no);
 
