@@ -2,7 +2,6 @@ package com.jiho.anniehands.domain.product;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
 import com.jiho.anniehands.common.exception.PageException;
-import com.jiho.anniehands.domain.image.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ImageRepository imageRepository;
     @Value("${s3.path.products}")
     private String s3ProductsPath;
 

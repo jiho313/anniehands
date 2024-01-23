@@ -20,7 +20,6 @@ public class ProductDetailDto {
 
     public static ProductDetailDto createDto(Product product, String s3BasePath) {
         List<ImageDto> imageDtos = product.getImages().stream()
-                .distinct()
                 .map((Image image) -> ImageDto.createDto(image, s3BasePath)).toList();
 
         // 색상 옵션과 사이즈 옵션 분류
