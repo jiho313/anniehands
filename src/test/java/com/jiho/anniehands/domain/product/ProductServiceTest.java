@@ -1,6 +1,7 @@
 package com.jiho.anniehands.domain.product;
 
 import com.jiho.anniehands.domain.image.Image;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ class ProductServiceTest {
 
     @Transactional
     @Test
+    @DisplayName("1 + N 쿼리 튜닝 테스트")
     void testFindProductByNo() {
         Long productId = 3L; // 테스트할 상품 ID
         Optional<Product> product = productRepository.findByNo(productId);
@@ -26,16 +28,5 @@ class ProductServiceTest {
             System.out.println("image.getOriginName() = " + image.getOriginName());
         }
     }
-
-    @Transactional
-    @Test
-    void testGetProductWithImages() {
-        Long productId = 3L; // 테스트할 상품 ID
-        Product product = productRepository.findProductWithImages(productId);
-        List<Image> images = product.getImages();
-        for (Image image : images) {
-            System.out.println("image.getOriginName() = " + image.getOriginName());
-        }
-    }
-
+    
 }
