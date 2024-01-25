@@ -1,6 +1,5 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.domain.category.CategoryDto;
 import com.jiho.anniehands.domain.category.CategoryResult;
 import com.jiho.anniehands.domain.category.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -33,11 +29,6 @@ public class ProductController {
             @PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
             Model model) {
         CategoryResult categoryResult = categoryService.getCategoryInfo(categoryNo, pageable);
-        // 하위 카테고리를 조회했을 때 하위 카테고리 버튼을 유지하기 위해 상위 카테고리 번호로 하위 카테고리 조회
-        if (categoryResult.getParent() != null) {
-            List<CategoryDto> children = categoryService.findSubcategories(categoryResult.getParent());
-            categoryResult.setChildren(children);
-        }
         prepareModel(pageable, model, categoryResult);
         return "page/product/list";
     }

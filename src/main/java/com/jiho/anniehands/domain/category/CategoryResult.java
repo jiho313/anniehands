@@ -14,13 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class CategoryResult {
+
     private Integer no;
     private String name;
-    private Integer parent;
-    private List<CategoryDto> children;
+    private List<CategoryDto> relatedCategories;
     private Page<ProductDto> products;
 
-    public void setChildren(List<CategoryDto> children) {
-        this.children = children;
-    }
 }

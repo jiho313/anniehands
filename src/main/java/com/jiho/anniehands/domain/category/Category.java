@@ -23,6 +23,7 @@ public class Category {
     private List<Product> products = new ArrayList<>();
 
     // 부모 카테고리와의 관계 매핑
+    // FetchType - 연관관계 엔티티의 데이터를 즉시 로딩할지, 실제 접근 시점에 로딩할지 결정한다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_no")
     private Category parentCategory;
