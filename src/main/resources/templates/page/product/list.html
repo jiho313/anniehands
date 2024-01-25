@@ -12,7 +12,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <ul class="nav nav-pills card-header-pills">
-                    <div th:each="children : ${categoryResult.children}">
+                    <div th:each="children : ${categoryResult.relatedCategories}">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/product/list(categoryNo=${children.no})}" th:text="${children.name}">하위 카테고리 이름</a>
                         </li>
