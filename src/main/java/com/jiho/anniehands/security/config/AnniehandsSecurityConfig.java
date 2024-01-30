@@ -32,9 +32,9 @@ public class AnniehandsSecurityConfig {
 
         // csrf 비활성화
         http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/**").permitAll())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/**").permitAll())
                 // 폼 로그인 관련 설정
                 .formLogin(formLoginConfigurer -> formLoginConfigurer
                         .loginPage(LOGIN_URL)                        // 사용자 정의 로그인 페이지
