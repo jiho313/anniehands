@@ -2,14 +2,15 @@
 ## 🔍 프로젝트 설명
 - 배포 링크➡️ [**https://anniehands.co.kr**](https://anniehands.co.kr)
 - 테스트 계정
-  - 일반 유저
-  - ID: test
-  - PASSWORD: 1234
-- 개인 프로젝트로 Back/FrontEnd 개발을 주도하고, AWS를 활용하여 CI/CD와 DataBase 등 Infra를 구축한 프로젝트
-- 반려동물 용품을 판매하는 쇼핑몰에 실종 및 입양 게시판을 추가하여, 반려동물 커뮤니티의 특성을 결합한 웹 애플리케이션
+  - |권한|ID|PASSWORD|
+    | --- | --- | ---|
+    |일반유저|test|1234|
+    |관리자|admin|1234|
+- Back/FrontEnd 개발과 기존에 시도해보지 않은 기술 및 기능 위주로 구현하고, AWS를 활용하여 CI/CD와 DataBase 등 Infra를 구축한 개인 프로젝트
+- 반려동물용품을 판매하는 쇼핑몰에 실종 게시판을 추가하여, 유기 동물 케어 커뮤니티의 특성을 결합한 웹 애플리케이션
 - 개발 중인 애플리케이션으로 지속적으로 업데이트 중 ⚙️
-  - 회원가입 시 문자 인증 같은 경우, 외부 API를 사용중이며 문자 상품 특성상 이통사 통신망 지연 및 수신자의 상황에 의해 수신이 늦게되는 경우가 있다고 합니다. 그럴 경우 소셜 로그인으로 가입 부탁드립니다.
-  - 이외 에러 사항은 h2j970313@gmail.com으로 연락주시면 알아보고 빠르게 조치 취하겠습니다! 😊  
+  - 회원가입 시 문자 인증은 외부 API를 통해 이루어지며, 문자 상품 특성상 통신망 지연 및 수신자의 상황에 따라 수신이 지연될 수 있다고 합니다. 이 경우 테스트 계정이나 소셜 로그인을 활용하시길 권장합니다.
+  - 이외 에러 사항은 h2j970313@gmail.com으로 연락주시면 신속하게 대응하겠습니다! 😊  
 ### 시스템 아키텍쳐
 ![시스템 아키텍쳐](https://github.com/jiho313/anniehands/assets/130119257/26d524c4-d236-4c2d-a1c9-277cfcf0ee0f)
 ### ERD
@@ -17,7 +18,7 @@
 ## 🛠️사용기술
 |영역|기술|
 | --- | --- |
-| 🖥 Back-End | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-green?style=flat&logo=spring-boot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring_Security-green?style=flat&logo=springsecurity&logoColor=white) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-darkgreen?style=flat&logo=thymeleaf) ![Gradle](https://img.shields.io/badge/Gradle-blue?style=flat&logo=Gradle)|
+| 🖥 Back-End | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-green?style=flat&logo=spring-boot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring_Security-green?style=flat&logo=springsecurity&logoColor=white)  ![Spring Data JPA](https://img.shields.io/badge/JPA(SpringDataJPA)-DC382D?style=flat) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-darkgreen?style=flat&logo=thymeleaf) ![Gradle](https://img.shields.io/badge/Gradle-blue?style=flat&logo=Gradle)|
 | 🎨 Front-End | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=flat&logo=javascript&logoColor=black) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) |
 | 🗄️ DataBase |![MySQL](https://img.shields.io/badge/MySQL-blue?style=flat&logo=mysql&logoColor=black) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white) ![amazonrds](https://img.shields.io/badge/RDS-527FFF?style=flat&logo=Amazonrds&logoColor=white)|
 | ☁️ Infra |![amazonec2](https://img.shields.io/badge/EC2-FF9900?style=flat&logo=amazonec2&logoColor=white) ![amazons3](https://img.shields.io/badge/S3-DC382D?style=flat&logo=amazons3&logoColor=white) ![Route53](https://img.shields.io/badge/Route53-8C4FFF?style=flat&logo=amazonroute53&logoColor=white) ![ACM](https://img.shields.io/badge/ACM-569A31?style=flat&logo=amazonaws&logoColor=white) ![ELB](https://img.shields.io/badge/ELB-FF9900?style=flat&logo=amazonaws&logoColor=white) ![CodeDeploy](https://img.shields.io/badge/CodeDeploy-569A31?style=flat&logo=amazonaws&logoColor=white) |
