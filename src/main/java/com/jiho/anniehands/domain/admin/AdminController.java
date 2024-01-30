@@ -3,11 +3,13 @@ package com.jiho.anniehands.domain.admin;
 import com.jiho.anniehands.domain.category.dto.CategoryDto;
 import com.jiho.anniehands.domain.category.dto.CategoryResultAdmin;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
     private final AdminCategoryService adminCategoryService;
@@ -28,21 +31,25 @@ public class AdminController {
     }
 
     @GetMapping("/product/list")
-    public String productList(@RequestParam(required = false) Integer categoryNo,
-                              @PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
+    public String productList(@PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
+                              @RequestParam(required = false) Integer categoryNo,
+                              @RequestParam(required = false) String opt,
+                              @RequestParam(required = false) String keyword,
                               Model model) {
-        CategoryResultAdmin categoryResult = adminCategoryService.getCategoryInfoForAdmin(categoryNo, pageable);
+
+        CategoryResultAdmin categoryResult;
+        if (StringUtils.hasText(opt) && StringUtils.hasText(keyword)) {
+            // 검색 조건(opt와 keyword)이 있는 경우, 검색 메소드를 호출
+            categoryResult = adminCategoryService.searchProducts(opt, keyword, pageable);
+        } else {
+            // 검색 조건이 없는 경우, 기본 카테고리 정보를 가져오는 메소드를 호출
+            categoryResult = adminCategoryService.getCategoryInfoForAdmin(categoryNo, pageable);
+        }
+
         prepareModel(pageable, model, categoryResult);
-        return "page/admin/list";
-    }
-    @GetMapping("/product/search")
-    public String productSearch(@PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(required = false) Integer categoryNo,
-                                @RequestParam(required = false) String opt,
-                                @RequestParam(required = false) String keyword,
-                                Model model) {
-        CategoryResultAdmin categoryResult = adminCategoryService.searchProducts(categoryNo, opt, keyword, pageable);
-        prepareModel(pageable, model, categoryResult);
+        model.addAttribute("opt", opt);
+        model.addAttribute("keyword", keyword);
+        log.info("모델 정보 ===> {}", model);
         return "page/admin/list";
     }
 

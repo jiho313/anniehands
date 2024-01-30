@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
@@ -29,7 +28,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "WHERE p.no = :no")
     Optional<Product> findByNo(@Param("no") Long no);
 
-    @Override
+//    @Override
     Page<Product> findAll(Pageable pageable);
 
     Page<Product> findAll(Specification<Product> spec, Pageable pageable);

@@ -1,44 +1,49 @@
-function changeSortOrder(sortValue) {
-    var params = new URLSearchParams(window.location.search);
-    params.set('sort', sortValue);
-    window.location.search = params.toString();
-}
-
-// 필드 값 설정 후 폼 제출 함수
-function updateAndSubmit(name, value, resetPage = true) {
-	$(`input[name=${name}]`).val(value);
-    if (resetPage) {
-        $("input[name=page]").val(1);
-    }
-    $("#form-letsparty-search").submit();
-}
-
 $(function(){
-	// 카테고리 변경
-	$("#letsparty-categorys .nav-link").on("click", function(e){
-	    e.preventDefault();
-	    let categoryNo = $(this).data("value");
-	    updateAndSubmit("categoryNo", categoryNo);
-	});
-
 	// 정렬 변경
 	$("select[name=sort]").on("change", function(){
 		let sort = $("select[name=sort]").val();
-	    updateAndSubmit("sort", sort);
+	    updateAndSubmit("sort", sort, false);
 	});
+});
 
-	// 검색
-	$("#outline-btn").on("click", function(){
-		let keyword = $("input[name=keyword]").val();
-	    if (keyword.trim() === "") {
-	        alert("키워드를 입력하세요!");
-	        $("input[name=keyword]").focus();
-	        return;
-	    }
-	    $("input[name=page]").val(1);
-	    updateAndSubmit("keyword", keyword);
-	});
+// 필드 값 설정 후 폼 제출 함수
+function updateAndSubmit(name, value, resetPage = true) {
+    const currentOpt = $("select[name=opt]").val();
+    const currentKeyword = $("input[name=keyword]").val();
 
+    $("input[name=" + name + "]").val(value);
+    $("input[name=opt]").val(currentOpt);
+    $("input[name=keyword]").val(currentKeyword);
+
+    if (resetPage) {
+        $("input[name=page]").val(0);
+    }
+    $("#form-admin-product-search").submit();
+}
+
+// 검색 로직을 별도의 함수로 분리
+function performSearch() {
+    let keyword = $("input[name=keyword]").val();
+    if (keyword.trim() === "") {
+        alert("키워드를 입력하세요!");
+        $("input[name=keyword]").focus();
+        return;
+    }
+    $("input[name=page]").val(0);
+    updateAndSubmit("keyword", keyword, true);
+}
+
+// 검색 버튼 클릭 이벤트 핸들러
+$("#outline-btn").on("click", function() {
+    performSearch();
+});
+
+// 엔터 키 이벤트 핸들러
+$("input[name='keyword']").keypress(function(e) {
+    if (e.which == 13) { // 13은 엔터 키의 키코드
+        e.preventDefault(); // 기본 엔터 키 이벤트 방지
+        performSearch();
+    }
 });
 
 // 페이지 변경
