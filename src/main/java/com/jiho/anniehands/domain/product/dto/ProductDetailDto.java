@@ -1,7 +1,8 @@
-package com.jiho.anniehands.domain.product;
+package com.jiho.anniehands.domain.product.dto;
 
 import com.jiho.anniehands.domain.image.Image;
 import com.jiho.anniehands.domain.image.ImageDto;
+import com.jiho.anniehands.domain.product.Product;
 import com.jiho.anniehands.domain.productoptions.ProductOptionsDto;
 import lombok.*;
 

@@ -32,6 +32,9 @@ public class AnniehandsSecurityConfig {
 
         // csrf 비활성화
         http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/**").permitAll())
                 // 폼 로그인 관련 설정
                 .formLogin(formLoginConfigurer -> formLoginConfigurer
                         .loginPage(LOGIN_URL)                        // 사용자 정의 로그인 페이지
@@ -54,8 +57,8 @@ public class AnniehandsSecurityConfig {
                                 .userService(customOatuh2UserService)))
                 // 인증인가 관련 예외 처리 설정
                 .exceptionHandling(exceptionHandlingConfigurer -> exceptionHandlingConfigurer
-                        .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login?error=noauth"))
-                        .accessDeniedHandler((request, response, authException) -> response.sendRedirect("/login?error=denied")));
+                        .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/user/login?error=noauth"))
+                        .accessDeniedHandler((request, response, authException) -> response.sendRedirect("/user/login?error=denied")));
         return http.build();    // HttpSecurity 설정을 기반으로 SecurityFilterChain을 빌드
     }
 

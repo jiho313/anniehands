@@ -1,22 +1,18 @@
 package com.jiho.anniehands.domain.user;
 
+import com.jiho.anniehands.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-@EntityListeners(AuditingEntityListener.class)
 @DynamicInsert
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,14 +33,6 @@ public class User {
     @Column(nullable = false, length = 20)
     private String tel;
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
     @Column(nullable = false)
     private Boolean isEnabled;
 
@@ -60,7 +48,7 @@ public class User {
     private LocalDate birthdate;
 
     @Builder
-    public User(Long no, String id, String name, String email, String password, String tel, LocalDateTime createdAt, LocalDateTime updatedAt,
+    public User(Long no, String id, String name, String email, String password, String tel,
                 Boolean isEnabled, Role role, LocalDate birthdate, UserLoginType loginInfo) {
         this.no = no;
         this.id = id;
@@ -68,8 +56,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.tel = tel;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.isEnabled = isEnabled;
         this.role = role;
         this.birthdate = birthdate;

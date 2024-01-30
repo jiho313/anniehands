@@ -1,0 +1,39 @@
+<html layout:decorate="~{layout/admin-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/main}">
+</head>
+<!-- 고유 content -->
+<div class="content" layout:fragment="content-top">
+
+    <div class="card">
+        <div class="card-header">
+            <h3>관리자 대시보드</h3>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <h4>상품 관리</h4>
+                <a class="me-3" th:href="@{/admin/product/list}">
+                    <button class="btn btn-primary">상품목록</button>
+                </a>
+                <a th:href="@{/admin/product/create}">
+                    <button class="btn btn-success">상품등록</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+<div layout:fragment="content-bottom">
+    <div class="modal">
+        <h1>modal영역</h1>
+    </div>
+</div>
+<!-- 고유 script -->
+<th:block layout:fragment="script">
+    <script></script>
+</th:block>
+</html>

@@ -1,0 +1,137 @@
+<html layout:decorate="~{layout/admin-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/main}">
+</head>
+<!-- 고유 content -->
+<div class="content" layout:fragment="content-top">
+<!--    <h3 th:text="${categoryResult.name}" class="my-3">강아지</h3>-->
+    <!-- 부모 카테고리가 있는 경우 -->
+    <div th:if="${categoryResult.parentNo != null}">
+        <h3>
+            <a th:href="@{/admin/product/list(categoryNo=${categoryResult.parentNo})}" th:text="${categoryResult.parentName}">부모 카테고리</a>
+        </h3>
+        <h4 th:text="${categoryResult.name}"> - 현재 카테고리</h4>
+    </div>
+    <!-- 부모 카테고리가 없는 경우 -->
+    <h3 th:unless="${categoryResult.parentNo != null}" th:text="${categoryResult.name}">현재 카테고리</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <ul class="nav nav-pills card-header-pills">
+                    <div th:each="children : ${categoryResult.relatedCategories}">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/admin/product/list(categoryNo=${children.no})}" th:text="${children.name}">하위 카테고리 이름</a>
+                        </li>
+                    </div>
+                </ul>
+                <div class="d-flex">
+                    <select onchange="changeSortOrder(this.value)" class="form-select me-3" name="sort"
+                            style="width: 150px;">
+                        <option value="createdDate,DESC" th:selected="${sortString == 'createdDate,ASC'}">신상품순
+                        </option>
+                        <option value="sale,ASC" th:selected="${sortString == 'sale,ASC'}">낮은 가격순
+                        </option>
+                        <option value="sale,DESC" th:selected="${sortString == 'sale,DESC'}">높은 가격순
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-products-table my-3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>상품 번호</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>세일 가격</th>
+                <th>재고</th>
+                <th>판매여부</th>
+                <th>생성일</th>
+                <th>수정일</th>
+                <th>관리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${categoryResult.products}">
+                <td th:text="${product.no}">1</td>
+                <td>
+                    <a th:text="${product.name}" th:href="@{/product/detail/{productNo}(productNo=${product.no})}">상품</a>
+                </td>
+                <td th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + '원'">가격</td>
+                <td th:text="${product.sale != null ? #numbers.formatInteger(product.sale, 0, 'COMMA') + '원' : '-' }">세일 가격</td>
+                <td th:text="${product.stock}">재고</td>
+                <td th:text="${product.isEnabled ? 'O' : 'X'}">판매여부</td>
+                <td th:text="${#temporals.format(product.createdDate, 'yyyy-MM-dd a hh:mm', 'Asia/Seoul')}">생성일</td>
+                <td th:text="${#temporals.format(product.updatedDate, 'yyyy-MM-dd a hh:mm', 'Asia/Seoul')}">수정일</td>
+                <td>
+                    <a th:href="@{/admin/product/edit/{productNo}(productNo=${product.no})}" class="btn btn-warning">수정</a>
+                    <a th:href="@{/admin/product/delete/{productNo}(productNo=${product.no})}" class="btn btn-danger">삭제</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(categoryResult.products.content)}">
+                <td colspan="5" class="text-center">현재 상품이 존재하지 않습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="" style="background-color: white;">
+        <div>
+            <div>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=0, size=${pageable.pageSize}, sort=${sortString})}"><i
+                                class="fa-solid fa-angles-left"></i></a>
+                    </li>
+                    <li th:if="${totalPages > 0}" th:each="pageNum : ${#numbers.sequence(startPage, endPage)}" th:classappend="${pageable.pageNumber == pageNum} ? 'active' : ''"class="page-item">
+                        <a href="#" class="page-link" th:onclick="'changePage(event, ' + ${pageNum} + ')'" th:text="${pageNum} + 1"></a>
+
+                        <!--                        <a th:href="@{/admin/product/search(categoryNo=${categoryResult.no}, page=${pageNum}, size=${pageable.pageSize}, sort=${sortString})}" class="page-link" th:text="${pageNum + 1}"></a>-->
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=${totalPages - 1}, size=${pageable.pageSize}, sort=${sortString})}"><i
+                                class="fa-solid fa-angles-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <form id="form-letsparty-search" class="row row-cols-md-auto g-3 align-items-center" method="get" action="/admin/product/search">
+            <input type="hidden" name="categoryNo" th:value="${param.categoryNo}"/>
+            <input type="hidden" name="sort" th:value="${param.sort}"/>
+            <input type="hidden" name="page" th:value="${param.page}"/>
+            <div class="col-12">
+                <select class="form-select" name="opt">
+                    <option value="no">상품번호</option>
+                    <option value="name">상품명</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <input type="text" class="form-control" name="keyword" />
+            </div>
+            <div class="col-12">
+                <button id="outline-btn" type="button" class="btn btn-outline-primary btn-sm" onclick="searchLetsParty()">검색</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+<div layout:fragment="content-bottom">
+    <div class="modal">
+        <h1>modal영역</h1>
+    </div>
+</div>
+<!-- 고유 script -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/page/admin/list.js}"></script>
+</th:block>
+</html>

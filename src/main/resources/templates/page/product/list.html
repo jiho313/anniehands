@@ -7,7 +7,20 @@
 </head>
 <!-- 고유 content -->
 <div class="container" layout:fragment="content-top">
-    <h3 th:text="${categoryResult.name}" class="my-3">강아지</h3>
+<!--    <h3 th:text="${categoryResult.name}" class="my-3">강아지</h3>-->
+<!--    <h3 th:text="${categoryResult.parentName != null ? categoryResult.parentName + ' - ' + categoryResult.name : categoryResult.name}" class="my-3">강아지</h3>-->
+
+    <!-- 부모 카테고리가 있는 경우 -->
+    <div th:if="${categoryResult.parentNo != null}">
+        <h3>
+            <a th:href="@{/product/list(categoryNo=${categoryResult.parentNo})}" th:text="${categoryResult.parentName}">부모 카테고리</a>
+        </h3>
+        <h4 th:text="${categoryResult.name}"> - 현재 카테고리</h4>
+    </div>
+
+    <!-- 부모 카테고리가 없는 경우 -->
+    <h3 th:unless="${categoryResult.parentNo != null}" th:text="${categoryResult.name}">현재 카테고리</h3>
+
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -57,7 +70,9 @@
             </div>
         </div>
     </div>
-    <div class="" style="background-color: white;">
+
+    <!-- 검색 구간 -->
+    <div class="">
         <div>
             <div>
                 <ul class="pagination justify-content-center">

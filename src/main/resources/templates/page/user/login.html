@@ -8,9 +8,19 @@
 <!-- 고유 content -->
 <div class="container" layout:fragment="content-top">
     <!-- 길이가 짧아서 다른 페이지보다 약간 차이날 수 있음-->
-    <div th:if="${param.error}" class="alert alert-danger">
-        <span>로그인 실패: 아이디나 비밀번호를 확인해주세요.</span>
+
+    <div class="alert-box">
+        <div th:if="${error == 'fail'}" class="alert alert-danger">
+            <span>로그인 실패: 아이디나 비밀번호를 확인해주세요.</span>
+        </div>
+        <div th:if="${error == 'noauth'}" class="alert alert-danger">
+            <span>로그인 후 이용할 수 있는 서비스입니다. 로그인 후 이용해주세요.</span>
+        </div>
+        <div th:if="${error == 'denied'}" class="alert alert-danger">
+            <span>접근 권한이 없습니다. 로그인 정보를 다시 확인해주세요.</span>
+        </div>
     </div>
+
     <div class="card">
         <div class="card-header  py-1 pt-2 text-center">
             <h3>로그인</h3>

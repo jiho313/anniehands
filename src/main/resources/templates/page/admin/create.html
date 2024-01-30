@@ -1,0 +1,23 @@
+<html layout:decorate="~{layout/admin-base}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 고유 CSS -->
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/main}">
+</head>
+<!-- 고유 content -->
+<div class="container" layout:fragment="content-top">
+
+</div>
+
+<!-- 모달 등 추가 div가 필요할 경우만 사용 -->
+<div layout:fragment="content-bottom">
+    <div class="modal">
+        <h1>modal영역</h1>
+    </div>
+</div>
+<!-- 고유 script -->
+<th:block layout:fragment="script">
+    <script></script>
+</th:block>
+</html>
