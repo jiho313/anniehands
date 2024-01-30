@@ -30,6 +30,11 @@
 									님 환영합니다!
                             </span>
                         </li>
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/admin}">관리자 페이지</a>
+                            </li>
+                        </div>
                         <li class="nav-item">
                             <a class="nav-link" href="#">장바구니</a>
                         </li>

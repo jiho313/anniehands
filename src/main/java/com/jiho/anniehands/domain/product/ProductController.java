@@ -1,7 +1,8 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.domain.category.CategoryResult;
+import com.jiho.anniehands.domain.category.dto.CategoryResult;
 import com.jiho.anniehands.domain.category.CategoryService;
+import com.jiho.anniehands.domain.product.dto.ProductDetailDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,7 @@ public class ProductController {
             @PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
             Model model) {
         CategoryResult categoryResult = categoryService.getCategoryInfo(categoryNo, pageable);
+        log.info("카테고리 정보 ====> {}", categoryResult);
         prepareModel(pageable, model, categoryResult);
         return "page/product/list";
     }

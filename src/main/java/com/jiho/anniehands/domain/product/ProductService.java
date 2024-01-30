@@ -2,12 +2,14 @@ package com.jiho.anniehands.domain.product;
 
 import com.jiho.anniehands.common.exception.CustomErrorCode;
 import com.jiho.anniehands.common.exception.PageException;
+import com.jiho.anniehands.domain.product.dto.ProductDetailDto;
+import com.jiho.anniehands.domain.product.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +27,9 @@ public class ProductService {
     }
 
     // 신상품 5개 조회
-    public List<ProductDto> getTop5NewProducts() {
-        return productRepository.findTop5ByIsEnabledOrderByCreatedDateDesc(true).stream()
-                .map(product -> ProductDto.createDto(product, s3ProductsPath)).toList();
+    public Page<ProductDto> getTop5NewProducts(Pageable pageable) {
+        return productRepository.findTop5ByIsEnabled(true, pageable)
+                .map(product -> ProductDto.createDto(product, s3ProductsPath));
     }
 
 

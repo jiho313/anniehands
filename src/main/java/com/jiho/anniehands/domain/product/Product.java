@@ -1,12 +1,12 @@
 package com.jiho.anniehands.domain.product;
 
+import com.jiho.anniehands.common.BaseTimeEntity;
 import com.jiho.anniehands.domain.category.Category;
 import com.jiho.anniehands.domain.image.Image;
 import com.jiho.anniehands.domain.productoptions.ProductOptions;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"category", "images"})
-public class Product {
+public class Product extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +40,6 @@ public class Product {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @Column(name = "created_date", nullable = false)
-    private LocalDateTime createdDate;
-
-    @Column(name = "updated_date", nullable = false)
-    private LocalDateTime updatedDate;
-
     @Column(name = "is_Enabled", nullable = false)
     private Boolean isEnabled;
 
@@ -61,8 +55,8 @@ public class Product {
     private Set<ProductOptions> productOptions = new HashSet<>();
 
     @Builder
-    public Product(Long no, String thumbnailPath, String name, String content, Integer price, Integer sale, Integer stock,
-                   LocalDateTime createdDate, LocalDateTime updatedDate, Boolean isEnabled, Category category) {
+    public Product(Long no, String thumbnailPath, String name, String content, Integer price, Integer sale,
+                   Integer stock, Boolean isEnabled, Category category) {
         this.no = no;
         this.thumbnailPath = thumbnailPath;
         this.name = name;
@@ -70,8 +64,6 @@ public class Product {
         this.price = price;
         this.sale = sale;
         this.stock = stock;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
         this.isEnabled = isEnabled;
         this.category = category;
     }

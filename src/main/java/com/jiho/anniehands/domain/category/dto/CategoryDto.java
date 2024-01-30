@@ -1,6 +1,10 @@
-package com.jiho.anniehands.domain.category;
 
-import lombok.*;
+package com.jiho.anniehands.domain.category.dto;
+
+import com.jiho.anniehands.domain.category.Category;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @ToString
@@ -9,13 +13,12 @@ public class CategoryDto {
 
     private Integer no;
     private String name;
-    private Integer parent;
 
     public static CategoryDto createDto(Category category) {
         return CategoryDto.builder()
                 .no(category.getNo())
                 .name(category.getName())
-                .parent(category.getParentCategory().getNo())
                 .build();
     }
+
 }
