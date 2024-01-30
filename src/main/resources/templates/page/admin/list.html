@@ -28,7 +28,7 @@
                     </div>
                 </ul>
                 <div class="d-flex">
-                    <select onchange="changeSortOrder(this.value)" class="form-select me-3" name="sort"
+                    <select class="form-select me-3" name="sort"
                             style="width: 150px;">
                         <option value="createdDate,DESC" th:selected="${sortString == 'createdDate,ASC'}">신상품순
                         </option>
@@ -75,7 +75,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(categoryResult.products.content)}">
-                <td colspan="5" class="text-center">현재 상품이 존재하지 않습니다.</td>
+                <td colspan="12" class="text-center">현재 상품이 존재하지 않습니다.</td>
             </tr>
             </tbody>
         </table>
@@ -86,16 +86,15 @@
             <div>
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=0, size=${pageable.pageSize}, sort=${sortString})}"><i
+                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=0, size=${pageable.pageSize}, sort=${sortString}, opt=${opt}, keyword=${keyword})}"><i
                                 class="fa-solid fa-angles-left"></i></a>
                     </li>
                     <li th:if="${totalPages > 0}" th:each="pageNum : ${#numbers.sequence(startPage, endPage)}" th:classappend="${pageable.pageNumber == pageNum} ? 'active' : ''"class="page-item">
-                        <a href="#" class="page-link" th:onclick="'changePage(event, ' + ${pageNum} + ')'" th:text="${pageNum} + 1"></a>
-
-                        <!--                        <a th:href="@{/admin/product/search(categoryNo=${categoryResult.no}, page=${pageNum}, size=${pageable.pageSize}, sort=${sortString})}" class="page-link" th:text="${pageNum + 1}"></a>-->
+<!--                        <a href="#" class="page-link" th:onclick="'changePage(event, ' + ${pageNum} + ')'" th:text="${pageNum} + 1"></a>-->
+                        <a th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=${pageNum}, size=${pageable.pageSize}, sort=${sortString}, opt=${opt}, keyword=${keyword})}" class="page-link" th:text="${pageNum} + 1"></a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=${totalPages - 1}, size=${pageable.pageSize}, sort=${sortString})}"><i
+                        <a class="page-link" th:href="@{/admin/product/list(categoryNo=${categoryResult.no}, page=${totalPages - 1}, size=${pageable.pageSize}, sort=${sortString}, opt=${opt}, keyword=${keyword})}"><i
                                 class="fa-solid fa-angles-right"></i></a>
                     </li>
                 </ul>
@@ -104,18 +103,17 @@
     </div>
 
     <div class="d-flex justify-content-center">
-        <form id="form-letsparty-search" class="row row-cols-md-auto g-3 align-items-center" method="get" action="/admin/product/search">
-            <input type="hidden" name="categoryNo" th:value="${param.categoryNo}"/>
+        <form id="form-admin-product-search" class="row row-cols-md-auto g-3 align-items-center" method="get" action="/admin/product/list">
             <input type="hidden" name="sort" th:value="${param.sort}"/>
             <input type="hidden" name="page" th:value="${param.page}"/>
             <div class="col-12">
                 <select class="form-select" name="opt">
-                    <option value="no">상품번호</option>
-                    <option value="name">상품명</option>
+                    <option value="name" th:selected="${opt == 'name'}">상품명</option>
+                    <option value="no" th:selected="${opt == 'no'}">상품번호</option>
                 </select>
             </div>
             <div class="col-12">
-                <input type="text" class="form-control" name="keyword" />
+                <input type="text" class="form-control" name="keyword" th:value="${param.keyword}"/>
             </div>
             <div class="col-12">
                 <button id="outline-btn" type="button" class="btn btn-outline-primary btn-sm" onclick="searchLetsParty()">검색</button>

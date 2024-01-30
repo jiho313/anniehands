@@ -10,7 +10,6 @@ import com.jiho.anniehands.domain.category.dto.CategoryResultAdmin;
 import com.jiho.anniehands.domain.product.Product;
 import com.jiho.anniehands.domain.product.ProductRepository;
 import com.jiho.anniehands.domain.product.dto.ProductAdminDto;
-import com.jiho.anniehands.domain.product.dto.ProductDto;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,49 +43,26 @@ public class AdminCategoryService {
         }
     }
 
-    public CategoryResultAdmin searchProducts(Integer categoryNo, String opt, String keyword, Pageable pageable) {
-        Specification<Product> spec = createProductSpecification(categoryNo, opt, keyword);
+    public CategoryResultAdmin searchProducts(String opt, String keyword, Pageable pageable) {
+        Specification<Product> spec = createProductSpecification(opt, keyword);
         Page<ProductAdminDto> productDtos = productRepository.findAll(spec, pageable)
                 .map(product -> ProductAdminDto.createDto(product, s3ProductsPath));
 
-        // 여기서는 카테고리 정보를 가져오거나, 해당되는 카테고리가 없는 경우 기본 정보를 설정합니다.
-        // 예를 들어, categoryNo가 null이면 "모든 카테고리"와 같은 기본 정보를 설정할 수 있습니다.
-        Category currentCategory = null;
-        if (categoryNo != null) {
-            currentCategory = categoryRepository.findByNo(categoryNo)
-                    .orElse(null); // 카테고리가 없는 경우 null 처리
-        }
-
-        return createCategoryResultAdmin(currentCategory, productDtos);
+        return new CategoryResultAdmin(null, "상품 검색 결과", null, productDtos);
     }
 
-    private CategoryResultAdmin createCategoryResultAdmin(Category category, Page<ProductAdminDto> productDtos) {
-        if (category == null) {
-            return new CategoryResultAdmin(null, "모든 카테고리", null, null, null, productDtos);
-        } else {
-            // 카테고리와 관련된 추가 정보를 설정합니다.
-            List<CategoryDto> relatedCategories = categoryHelper.getRelatedCategories(category);
-            return new CategoryResultAdmin(category.getNo(), category.getName(),
-                    category.getParentCategory() != null ? category.getParentCategory().getNo() : null,
-                    category.getParentCategory() != null ? category.getParentCategory().getName() : null,
-                    relatedCategories, productDtos);
-        }
-    }
-
-    private Specification<Product> createProductSpecification(Integer categoryNo, String opt, String keyword) {
+    private Specification<Product> createProductSpecification(String opt, String keyword) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-
-            if (categoryNo != null) {
-                predicates.add(criteriaBuilder.equal(root.get("category"), categoryNo));
-            }
-
             if (StringUtils.hasText(opt) && StringUtils.hasText(keyword)) {
-                // 'opt'에 따라 다른 필드를 검색할 수 있도록 조건을 추가합니다.
-                // 예: opt가 'name'일 경우, name 필드에서 keyword를 검색합니다.
-                predicates.add(criteriaBuilder.like(root.get(opt), "%" + keyword + "%"));
+                if ("no".equals(opt)) {
+                    Long keywordAsLong = Long.parseLong(keyword);
+                    predicates.add(criteriaBuilder.equal(root.get(opt), keywordAsLong));
+                } else {
+                    // opt가 'name'과 같은 문자열 타입 필드인 경우
+                    predicates.add(criteriaBuilder.like(root.get(opt), "%" + keyword + "%"));
+                }
             }
-
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
