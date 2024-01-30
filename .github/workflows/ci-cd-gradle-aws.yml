@@ -3,6 +3,8 @@ name: Java CI/CD with Gradle And AWS Service
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
   pull_request:
     branches: [ "main" ]
     
