@@ -50,7 +50,7 @@ class FileRestControllerTest {
                         .file("file", "file content".getBytes())
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.originFileName").value("originFileName"))
-                .andExpect(jsonPath("$.serverFileName").value("serverFileName"));
+                .andExpect(jsonPath("$[0].originFileName").value("originFileName"))
+                .andExpect(jsonPath("$[0].serverFileName").value("serverFileName"));
     }
 }
