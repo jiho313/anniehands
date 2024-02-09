@@ -36,6 +36,12 @@ dependencies {
 	// 레디스
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.1.5'
 
+	// s3 이미지 업로드
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// s3 업로드시 파일명 중복방지를 위한 나노ID
+	implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
+
 	// 회원가입시 휴대폰 인증을 위한 의존성
 	implementation 'net.nurigo:sdk:4.2.7'
 

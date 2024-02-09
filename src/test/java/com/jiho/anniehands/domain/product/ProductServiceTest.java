@@ -1,7 +1,7 @@
 package com.jiho.anniehands.domain.product;
 
 import com.jiho.anniehands.domain.image.Image;
-import com.jiho.anniehands.domain.productoptions.ProductOptions;
+import com.jiho.anniehands.domain.productoption.ProductOption;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ class ProductServiceTest {
             System.out.println("image.getOriginName() = " + image.getOriginName());
         }
 
-        Set<ProductOptions> productOptions = product.get().getProductOptions();
-        for (ProductOptions options : productOptions) {
+        Set<ProductOption> productOptions = product.get().getProductOptions();
+        for (ProductOption options : productOptions) {
             System.out.println("options.getOption().getValue() = " + options.getOption().getValue());
         }
         

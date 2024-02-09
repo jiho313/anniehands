@@ -1,4 +1,4 @@
-package com.jiho.anniehands.domain.productoptions;
+package com.jiho.anniehands.domain.productoption;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,14 +7,14 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class ProductOptionsDto {
+public class ProductOptionDto {
 
     private Long no;
     private String optionName;
     private String optionValue;
 
-    public static ProductOptionsDto createDto(ProductOptions productOption) {
-        return ProductOptionsDto.builder()
+    public static ProductOptionDto createDto(ProductOption productOption) {
+        return ProductOptionDto.builder()
                 .no(productOption.getNo())
                 .optionName(productOption.getOption().getName())
                 .optionValue(productOption.getOption().getValue())

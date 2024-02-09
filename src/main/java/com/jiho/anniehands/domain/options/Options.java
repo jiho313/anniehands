@@ -1,12 +1,9 @@
-package com.jiho.anniehands.domain.option;
+package com.jiho.anniehands.domain.options;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
@@ -23,4 +20,11 @@ public class Options {
 
     @Column(name = "value", nullable = false, length = 50)
     private String value;
+
+    @Builder
+    public Options(Integer no, String name, String value) {
+        this.no = no;
+        this.name = name;
+        this.value = value;
+    }
 }

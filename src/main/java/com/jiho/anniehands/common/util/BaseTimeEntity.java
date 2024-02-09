@@ -1,4 +1,4 @@
-package com.jiho.anniehands.common;
+package com.jiho.anniehands.common.util;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

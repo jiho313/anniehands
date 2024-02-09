@@ -2,7 +2,6 @@ package com.jiho.anniehands.domain.product;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,27 +19,17 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
         ex1) 상품에는 이미지가 있을 수도 있고 없을 수도 있다.
         ex2) 상품에는 옵션이 있을 수도 있고 없을 수도 있다.
      */
-    @Query("SELECT DISTINCT p " +
-            "FROM Product p " +
-            "LEFT JOIN FETCH p.images " +
-            "LEFT JOIN FETCH p.productOptions po " +
-            "LEFT JOIN FETCH po.option " +
-            "WHERE p.no = :no")
+//    @Query("SELECT DISTINCT p " +
+//            "FROM Product p " +
+//            "LEFT JOIN FETCH p.images " +
+//            "LEFT JOIN FETCH p.productOptions po " +
+//            "JOIN FETCH po.option " +
+//            "WHERE p.no = :no")
     Optional<Product> findByNo(@Param("no") Long no);
-
-//    @Override
-    Page<Product> findAll(Pageable pageable);
-
-    Page<Product> findAll(Specification<Product> spec, Pageable pageable);
 
     // 일반유저 상품 조회
     @Query("SELECT p FROM Product p WHERE (p.category.no = :categoryNo OR p.category.parentCategory.no = :categoryNo) AND p.isEnabled = true")
     Page<Product> findProductsForUser(@Param("categoryNo") Integer categoryNo, Pageable pageable);
-
-    // 관리자 상품 조회(enabled = false 포함)
-    @Query("SELECT p FROM Product p WHERE p.category.no = :categoryNo OR p.category.parentCategory.no = :categoryNo")
-    Page<Product> findProductsForAdmin(@Param("categoryNo") Integer categoryNo, Pageable pageable);
-
 
 }
 
