@@ -15,12 +15,7 @@
             <div class="col">
                 <div class="card-body my-4">
                     <h3 class="card-title productName" th:text="${productDetail.productDto.name}">상품이름</h3>
-                    <p class="card-text" th:text="${productDetail.productDto.content}">상품 상세 설명입니다.상품 상세 설명입니다.상품 상세
-                        설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품
-                        상세 설명입니다.
-                        상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세
-                        설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.상품 상세 설명입니다.
-                    </p>
+                    <p class="card-text" th:text="${productDetail.productDto.content}">상품설명상품설명상품설명상품설명상품설명</p>
                     <p class="card-text">판매가 <span class="price"
                                                    style="text-decoration: line-through;"
                                                    th:if="${productDetail.productDto.sale < productDetail.productDto.price}"
@@ -37,145 +32,148 @@
 
                     <p class="card-text">배송비 <span>2,500</span></p>
 
-                    <div th:if="${not #lists.isEmpty(productDetail.colorOptions)}">
-                        <select aria-label="Default select example" class="form-select mb-1 color" style="width: 35%;">
-                            <option disabled selected>색상</option>
-                            <option th:each="option : ${productDetail.colorOptions}"
-                                    th:text="${option.optionValue}"
-                                    th:value="${option.no}">
-                            </option>
-                        </select>
-                    </div>
-
-                    <div th:if="${not #lists.isEmpty(productDetail.sizeOptions)}">
-                        <select aria-label="Default select example" class="form-select mb-1 size" style="width: 35%;">
-                            <option disabled selected>사이즈</option>
-                            <option th:each="option : ${productDetail.sizeOptions}"
-                                    th:text="${option.optionValue}"
-                                    th:value="${option.no}">
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <table class="table">
-                            <colgroup>
-                                <col width="65%">
-                                <col width="15%">
-                                <col width="15%">
-                                <col width="5%">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>이름</th>
-                                <th>수량</th>
-                                <th>가격</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-
-                        </table>
-
-                        <div class="text-end"><h4>총 상품금액 <span class="total-price">0 원</span></h4></div>
-
-                        <div class="justify-content-end row  mt-2">
-                            <button class="btn btn-outline-success" style="width: 50%;" type="button">장바구니 담기</button>
-                            <button class="btn btn-outline-primary" style="width: 50%;" type="button">구매하기</button>
+                    <form id="orderForm" method="post"
+                          th:action="@{/product/{productNo}/order(productNo=${productDetail.productDto.no})}">
+                        <div th:if="${not #lists.isEmpty(productDetail.colorOptions)}">
+                            <select aria-label="Default select example" class="form-select mb-1" id="color"
+                                    style="width: 35%;">
+                                <option disabled selected value="색상">색상</option>
+                                <option th:each="option : ${productDetail.colorOptions}"
+                                        th:text="${option.optionValue}"
+                                        th:value="${option.no}">
+                                </option>
+                            </select>
                         </div>
-                    </div>
+
+                        <div th:if="${not #lists.isEmpty(productDetail.sizeOptions)}">
+                            <select aria-label="Default select example" class="form-select mb-1" id="size"
+                                    style="width: 35%;">
+                                <option disabled selected value="사이즈">사이즈</option>
+                                <option th:each="option : ${productDetail.sizeOptions}"
+                                        th:text="${option.optionValue}"
+                                        th:value="${option.no}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <table class="table option">
+                                <colgroup>
+                                    <col width="65%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="5%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>수량</th>
+                                    <th>가격</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+
+                            </table>
+
+                            <div class="text-end"><h4>총 상품금액 <span class="total-price">0 원</span></h4></div>
+
+                            <div class="justify-content-end row mt-2">
+                                <button class="btn btn-outline-success" style="width: 50%;" type="button">장바구니 담기
+                                </button>
+                                <button class="btn btn-outline-primary" style="width: 50%;" type="submit">구매하기</button>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="card border-light  mx-4">
-        <div class="card-header mt-3">
-            <h3 class="" style="text-align: center;">상품상세</h3>
-        </div>
-        <div class="card-body">
-            <div class="product-detail-image-box" th:each="image : ${productDetail.imageDtos}">
-                <img class="product-detail-image" th:src="${image.serverName}">
-            </div>
+<div class="card border-light  mx-4">
+    <div class="card-header mt-3">
+        <h3 class="" style="text-align: center;">상품상세</h3>
+    </div>
+    <div class="card-body">
+        <div class="product-detail-image-box" th:each="image : ${productDetail.imageDtos}">
+            <img class="product-detail-image" th:src="${image.serverName}">
         </div>
     </div>
-
-    <div class="card border-light review-div">
-        <div class="card-header">
-            <h3 class="" style="text-align: center;">리뷰</h3>
-        </div>
-        <table class="table">
-            <colgroup>
-                <col width="90%">
-                <col width="10%">
-            </colgroup>
-            <thead>
-            <tr>
-                <th>제목</th>
-                <th>날짜</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-    <div class="card border-light review-div">
-        <div class="card-header">
-            <h3 class="" style="text-align: center;">문의</h3>
-        </div>
-        <table class="table">
-            <colgroup>
-                <col width="90%">
-                <col width="10%">
-            </colgroup>
-            <thead>
-            <tr>
-                <th>제목</th>
-                <th>날짜</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            <tr>
-                <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
-                <td>2024.01.01</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
 </div>
+
+<div class="card border-light review-div">
+    <div class="card-header">
+        <h3 class="" style="text-align: center;">리뷰</h3>
+    </div>
+    <table class="table">
+        <colgroup>
+            <col width="90%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.상품리뷰입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card border-light review-div">
+    <div class="card-header">
+        <h3 class="" style="text-align: center;">문의</h3>
+    </div>
+    <table class="table">
+        <colgroup>
+            <col width="90%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        <tr>
+            <td>상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.상품문의입니다.</td>
+            <td>2024.01.01</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
 
 <!-- 모달 등 추가 div가 필요할 경우만 사용 -->
 <div layout:fragment="content-bottom">

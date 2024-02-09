@@ -1,18 +1,15 @@
-package com.jiho.anniehands.domain.productoptions;
+package com.jiho.anniehands.domain.productoption;
 
-import com.jiho.anniehands.domain.option.Options;
+import com.jiho.anniehands.domain.options.Options;
 import com.jiho.anniehands.domain.product.Product;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class ProductOptions {
+public class ProductOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +23,14 @@ public class ProductOptions {
     @JoinColumn(name = "option_no", nullable = false)
     private Options option;
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @Builder
+    public ProductOption(Long no, Product product, Options option) {
+        this.no = no;
+        this.product = product;
+        this.option = option;
+    }
 }

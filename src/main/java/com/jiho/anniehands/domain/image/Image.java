@@ -25,14 +25,18 @@ public class Image {
     private String serverName;
 
     @Column(name = "file_size", nullable = false)
-    private Integer fileSize;
+    private Long fileSize;
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     @Builder
-    public Image(Long no, Product product, String originName, String serverName, Integer fileSize) {
-        this.no = no;
+    public Image(Product product, String originName, String serverName, Long fileSize) {
         this.product = product;
         this.originName = originName;
         this.serverName = serverName;
         this.fileSize = fileSize;
     }
+
 }

@@ -13,6 +13,14 @@
 .left {
 	width: 14%;
 }
+
+li {
+    list-style: none;
+}
+.nav-link {
+    display: flex;
+	justify-content: flex-end;
+}
 .right {
 	width: 15%;
 }

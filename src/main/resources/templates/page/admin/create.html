@@ -6,8 +6,130 @@
     <link rel="stylesheet" th:href="@{/css/page/main}">
 </head>
 <!-- 고유 content -->
-<div class="container" layout:fragment="content-top">
+<div class="content" layout:fragment="content-top">
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card card-line">
+                <div class="card-header">
+                    <div class="d-flex jutstify-content-start">
+                        <h5 class="pt-1 h5-text-black">상품 등록</h5>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data" id="createProductForm" method="post"
+                      th:action="@{/admin/product/create}" th:object="${productCreateForm}">
+                    <div class="card-body">
+                        <div class="row d-flex align-items-center">
+                            <div class="form-group mb-3 col-8">
+                                <label class="form-label">상품명</label>
+                                <input th:field="*{name}" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" class="form-control form-control" placeholder="상품명을 입력해주세요." type="text">
+                                <div th:errors="*{name}" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-2 pb-3">
+                                <div class="party-select-container">
+                                    <label class="form-label">1차 분류</label>
+                                    <select th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}" class="form-select form-select select-party" id="parentCategorySelect"
+                                            name="parentCategorySelect">
+                                        <option disabled selected th:value="${0}">1차 분류 선택</option>
+                                        <option th:each="parentCategory : ${parentCategories}"
+                                                th:text="${parentCategory.name}"
+                                                th:value="${parentCategory.no}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:errors="*{categoryNo}"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 pb-3">
+                                <div class="party-select-container">
+                                    <label class="form-label">2차 분류</label>
+                                    <select th:field="*{categoryNo}" th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}" class="form-select form-select" id="secondCategorySelect" name="categoryNo">
+                                        <option disabled selected th:value="${0}">2차 분류 선택</option>
+                                    </select>
+                                    <div class="invalid-feedback" th:errors="*{categoryNo}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">상품 설명</label>
+                            <textarea th:field="*{content}" th:classappend="${#fields.hasErrors('content') ? 'is-invalid' : ''}" class="form-control" cols="30" name="content" placeholder="상품 설명을 작성해주세요."
+                                      rows="10" type="text"></textarea>
+                            <div class="invalid-feedback" th:errors="*{content}"></div>
+                        </div>
 
+                        <!-- 이미지 업로드 -->
+                        <button class="btn btn-sm btn-secondary" id="addImageBtn" type="button">+ 상품 이미지 추가</button>
+                        <div class="form-group" id="imageUploadSection">
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputThumbnail">썸네일 이미지</label>
+                                <input aria-label="Upload" class="form-control" id="inputThumbnail"
+                                       name="inputThumbnail"
+                                       type="file">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+
+                            <!-- 재고 -->
+                            <div class="input-group input-group-default mb-3 col">
+                                <span class="input-group-text">재고</span>
+                                <input th:field="*{stock}" th:classappend="${#fields.hasErrors('stock') ? 'is-invalid' : ''}" class="form-control" id="stock" min="1" name="stock" type="number">
+                                <div class="invalid-feedback" th:errors="*{stock}"></div>
+                            </div>
+
+                            <!-- 가격 -->
+                            <div class="input-group input-group-default mb-3 col">
+                                <span class="input-group-text">가격</span>
+                                <input th:field="*{price}" th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}" class="form-control" min="10" name="price" type="number">
+                                <div class="invalid-feedback" th:errors="*{price}"></div>
+                            </div>
+
+                            <!-- 할인가격 -->
+                            <div class="input-group input-group-default mb-3 col">
+                                <span class="input-group-text">할인가격</span>
+                                <input class="form-control" name="sale" type="number">
+                            </div>
+                        </div>
+
+                        <!-- 색상 옵션 -->
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="colorOption">색상 옵션</label>
+                                <div id="colorOptionsContainer">
+                                    <div th:each="colorOption : ${options.colorOptions}">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="colorOptions"
+                                                   th:id="'colorOption' + ${colorOption.no}"
+                                                   th:value="${colorOption.no}"
+                                                   type="checkbox"/>
+                                            <label class="form-check-label" th:for="'colorOption' + ${colorOption.no}"
+                                                   th:text="${colorOption.optionValue}">색상</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 사이즈 옵션 -->
+                            <div class="form-group col">
+                                <label for="sizeOption">사이즈 옵션</label>
+                                <div id="sizeOptionsContainer">
+                                    <div th:each="sizeOption : ${options.sizeOptions}">
+                                        <input name="sizeOptions" th:id="'sizeOption' + ${sizeOption.no}"
+                                               th:value="${sizeOption.no}" type="checkbox"/>
+                                        <label th:for="'sizeOption' + ${sizeOption.no}"
+                                               th:text="${sizeOption.optionValue}">색상</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer background-color-gray">
+                        <div class="text-end">
+                            <a class="btn btn-danger" id="cancel-btn">취소</a>
+                            <button class="btn btn-primary" id="btn" type="submit">등록</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- 모달 등 추가 div가 필요할 경우만 사용 -->
@@ -18,6 +140,6 @@
 </div>
 <!-- 고유 script -->
 <th:block layout:fragment="script">
-    <script></script>
+    <script th:src="@{/js/page/admin/create.js}"></script>
 </th:block>
 </html>

@@ -1,6 +1,62 @@
+document.querySelector('#orderForm').addEventListener('submit', (event) => {
+    event.preventDefault(); // 기본 제출 방지
+
+    const colorSelect = document.querySelector('#color');
+    const sizeSelect = document.querySelector('#size');
+
+    // 동적으로 생성된 각 행에 대한 데이터 수집
+    document.querySelectorAll('.option tbody tr').forEach((row, index) => {
+        const itemTotalPrice = row.cells[2].textContent;
+        const quantity = row.querySelector('.quantity-input').value;
+
+        // 숨겨진 필드 생성 및 설정
+        const inputItemTotalPrice = document.createElement('input');
+        inputItemTotalPrice.type = 'hidden';
+        inputItemTotalPrice.name = `items[${index}].itemTotalPrice`;
+        inputItemTotalPrice.value = itemTotalPrice;
+        event.target.appendChild(inputItemTotalPrice);
+
+        const inputQuantity = document.createElement('input');
+        inputQuantity.type = 'hidden';
+        inputQuantity.name = `items[${index}].quantity`;
+        inputQuantity.value = quantity;
+        event.target.appendChild(inputQuantity);
+
+        // 선택된 색상과 사이즈 값 추가
+        // 색상 옵션이 선택되었는지 확인
+        if (colorSelect && colorSelect.value !== 0) {
+            const inputColor = document.createElement('input');
+            inputColor.type = 'hidden';
+            inputColor.name = `items[${index}].color`;
+            inputColor.value = colorSelect.value;
+            event.target.appendChild(inputColor);
+        }
+
+        // 사이즈 옵션이 선택되었는지 확인
+        if (sizeSelect && sizeSelect.value !== 0) {
+            const inputSize = document.createElement('input');
+            inputSize.type = 'hidden';
+            inputSize.name = `items[${index}].size`;
+            inputSize.value = sizeSelect.value;
+            event.target.appendChild(inputSize);
+        }
+    });
+    // FormData 객체 생성
+        let formData = new FormData(event.target);
+
+        // FormData에 추가된 데이터를 콘솔에 출력
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+    // 숨겨진 필드를 포함한 폼 데이터 제출
+//    event.target.submit();
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    const colorSelect = document.querySelector('.color');
-    const sizeSelect = document.querySelector('.size');
+
+    const colorSelect = document.querySelector('#color');
+    const sizeSelect = document.querySelector('#size');
     const quantityInput = document.querySelector('.form-control-sm');
     const table = document.querySelector('.table');
     /*세일가가 없으면 일반 가격 선택*/
@@ -80,16 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const handleSelectChange = () => {
-            const selectedColor = colorSelect && colorSelect.value !== '색상' ? colorSelect.value : null;
-            const selectedSize = sizeSelect && sizeSelect.value !== '사이즈' ? sizeSelect.value : null;
+        const selectedColor = colorSelect && colorSelect.value;
+        const selectedSize = sizeSelect && sizeSelect.value;
 
-            if (selectedColor || selectedSize) {
-                addTableRow(initialQuantity);
-            }
+        // "색상"이나 "사이즈"가 선택되지 않았을 때만 addTableRow 함수 호출
+        if ((selectedColor && selectedColor !== "색상") || (selectedSize && selectedSize !== "사이즈")) {
+            addTableRow(initialQuantity);
         }
+    }
 
     if (colorSelect) colorSelect.addEventListener('change', handleSelectChange);
     if (sizeSelect) sizeSelect.addEventListener('change', handleSelectChange);
+
     quantityInput.addEventListener('input', (event) => {
         const newQuantity = parseInt(event.target.value);
         const totalPriceCell = document.querySelector(`#row-0 .total-price`);

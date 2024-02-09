@@ -1,7 +1,7 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.domain.category.dto.CategoryResult;
 import com.jiho.anniehands.domain.category.CategoryService;
+import com.jiho.anniehands.domain.category.dto.CategoryResult;
 import com.jiho.anniehands.domain.product.dto.ProductDetailDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -33,6 +30,11 @@ public class ProductController {
         log.info("카테고리 정보 ====> {}", categoryResult);
         prepareModel(pageable, model, categoryResult);
         return "page/product/list";
+    }
+
+    @PostMapping("/{productNo}/order")
+    public String order(){
+        return "/";
     }
 
     @GetMapping("/detail/{no}")

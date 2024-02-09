@@ -1,11 +1,12 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.common.BaseTimeEntity;
+import com.jiho.anniehands.common.util.BaseTimeEntity;
 import com.jiho.anniehands.domain.category.Category;
 import com.jiho.anniehands.domain.image.Image;
-import com.jiho.anniehands.domain.productoptions.ProductOptions;
+import com.jiho.anniehands.domain.productoption.ProductOption;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"category", "images"})
 public class Product extends BaseTimeEntity {
@@ -48,16 +50,15 @@ public class Product extends BaseTimeEntity {
     @JoinColumn(name = "category_no")
     private Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private Set<ProductOptions> productOptions = new HashSet<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductOption> productOptions = new HashSet<>();
 
     @Builder
-    public Product(Long no, String thumbnailPath, String name, String content, Integer price, Integer sale,
+    public Product(String thumbnailPath, String name, String content, Integer price, Integer sale,
                    Integer stock, Boolean isEnabled, Category category) {
-        this.no = no;
         this.thumbnailPath = thumbnailPath;
         this.name = name;
         this.content = content;
@@ -67,4 +68,16 @@ public class Product extends BaseTimeEntity {
         this.isEnabled = isEnabled;
         this.category = category;
     }
+
+    // ProductOption 추가 메소드 (옵셔널)
+    public void addProductOption(ProductOption productOption) {
+        this.productOptions.add(productOption);
+        productOption.setProduct(this);
+    }
+
+    public void addProductImage(Image image) {
+        this.images.add(image);
+        image.setProduct(this);
+    }
+
 }
