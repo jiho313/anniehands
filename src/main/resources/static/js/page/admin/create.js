@@ -2,7 +2,7 @@ $(document).ready(function() {
     var imageCount = 1;
 
     $('#addImageBtn').on('click', function() {
-        if (imageCount < 4) {
+        if (imageCount < 3) {
             var newImageInput = document.createElement('div');
             newImageInput.className = 'input-group';
             newImageInput.innerHTML = '<input type="file" class="form-control mt-1" id="inputGroupFile' + imageCount + '" aria-describedby="inputGroupFileAddon' + imageCount + '" aria-label="Upload">' +

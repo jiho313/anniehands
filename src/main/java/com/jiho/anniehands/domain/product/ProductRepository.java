@@ -19,12 +19,12 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
         ex1) 상품에는 이미지가 있을 수도 있고 없을 수도 있다.
         ex2) 상품에는 옵션이 있을 수도 있고 없을 수도 있다.
      */
-//    @Query("SELECT DISTINCT p " +
-//            "FROM Product p " +
-//            "LEFT JOIN FETCH p.images " +
-//            "LEFT JOIN FETCH p.productOptions po " +
-//            "JOIN FETCH po.option " +
-//            "WHERE p.no = :no")
+    @Query("SELECT DISTINCT p " +
+            "FROM Product p " +
+            "LEFT JOIN FETCH p.images " +
+            "LEFT JOIN FETCH p.productOptions po " +
+            "JOIN FETCH po.option " +
+            "WHERE p.no = :no")
     Optional<Product> findByNo(@Param("no") Long no);
 
     // 일반유저 상품 조회

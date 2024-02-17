@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"category", "images"})
+@ToString(exclude = {"category", "images", "productOptions"})
 public class Product extends BaseTimeEntity {
 
     @Id
@@ -57,8 +57,9 @@ public class Product extends BaseTimeEntity {
     private Set<ProductOption> productOptions = new HashSet<>();
 
     @Builder
-    public Product(String thumbnailPath, String name, String content, Integer price, Integer sale,
+    public Product(Long no, String thumbnailPath, String name, String content, Integer price, Integer sale,
                    Integer stock, Boolean isEnabled, Category category) {
+        this.no = no;
         this.thumbnailPath = thumbnailPath;
         this.name = name;
         this.content = content;
@@ -67,17 +68,6 @@ public class Product extends BaseTimeEntity {
         this.stock = stock;
         this.isEnabled = isEnabled;
         this.category = category;
-    }
-
-    // ProductOption 추가 메소드 (옵셔널)
-    public void addProductOption(ProductOption productOption) {
-        this.productOptions.add(productOption);
-        productOption.setProduct(this);
-    }
-
-    public void addProductImage(Image image) {
-        this.images.add(image);
-        image.setProduct(this);
     }
 
 }

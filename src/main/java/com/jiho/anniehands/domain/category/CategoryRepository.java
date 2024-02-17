@@ -20,7 +20,6 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     List<Category> findTopLevelCategories();
 
     // 1 + N 테스트 사용
-
     List<Category> findAll();
 
     // 1 + N 테스트 사용

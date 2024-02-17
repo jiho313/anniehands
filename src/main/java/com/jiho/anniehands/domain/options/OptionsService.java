@@ -15,7 +15,6 @@ public class OptionsService {
 
     public OptionsDto findAll() {
         List<Options> options = optionsRepository.findAll();
-        log.info("옵션 데이터 =====> {}", options);
         return OptionsDto.createDto(options);
     }
 }
