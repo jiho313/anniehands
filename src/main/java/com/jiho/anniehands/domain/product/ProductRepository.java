@@ -16,14 +16,13 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     /*LEFT JOIN은 데이터베이스에서 일종의 "선택적인" 관계를 표현할 때 유용하다.
         특히, 관련된 데이터가 있을 수도 있고 없을 수도 있는 경우에 사용되며, 이를 통해 더 포괄적인 데이터 세트를 얻을 수 있다.
         LEFT 왼쪽을 기준 (FROM절), RIGHT 오른쪽을 기준 (JOIN절)
-        ex1) 상품에는 이미지가 있을 수도 있고 없을 수도 있다.
-        ex2) 상품에는 옵션이 있을 수도 있고 없을 수도 있다.
+        ex1) 상품에는 옵션이 있을 수도 있고 없을 수도 있다.
      */
     @Query("SELECT DISTINCT p " +
             "FROM Product p " +
-            "LEFT JOIN FETCH p.images " +
+            "JOIN FETCH p.images " +
             "LEFT JOIN FETCH p.productOptions po " +
-            "JOIN FETCH po.option " +
+            "LEFT JOIN FETCH po.option " +
             "WHERE p.no = :no")
     Optional<Product> findByNo(@Param("no") Long no);
 
