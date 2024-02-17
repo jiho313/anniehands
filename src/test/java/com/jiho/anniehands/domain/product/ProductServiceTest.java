@@ -20,7 +20,7 @@ class ProductServiceTest {
 
     @Transactional
     @Test
-    @DisplayName("1+N 쿼리 튜닝 테스트")
+    @DisplayName("한 방 쿼리 튜닝 테스트")
     void testFindProductByNo() {
         Long productId = 3L; // 테스트할 상품 ID
         Optional<Product> product = productRepository.findByNo(productId);

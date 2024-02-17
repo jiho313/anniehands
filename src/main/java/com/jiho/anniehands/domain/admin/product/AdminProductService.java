@@ -12,7 +12,12 @@ import com.jiho.anniehands.domain.productoption.ProductOption;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,49 +27,60 @@ public class AdminProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final OptionsRepository optionsRepository;
+    private final AdminProductJdbcRepository adminProductJdbcRepository;
 
+    @Transactional
     public void createProduct(ProductCreateForm form) {
         Category category = categoryRepository.findByNo(form.getCategoryNo())
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("해당 카테고리를 찾을 수 없습니다."));
         Product productEntity = form.toProductEntity(category);
-
+        productRepository.save(productEntity);
         // 이미지 처리
+        List<Image> productImages = processImages(form, productEntity);
+        adminProductJdbcRepository.bulkInsertImages(productImages);
+        // 옵션 처리
+        if (form.getColorOptions() != null || form.getSizeOptions() != null) {
+            List<ProductOption> productOptions = processOption(form, productEntity);
+            adminProductJdbcRepository.bulkInsertProductOptions(productOptions);
+        }
+    }
+
+    @NotNull
+    private List<ProductOption> processOption(ProductCreateForm form, Product productEntity) {
+        List<ProductOption> productOptions = new ArrayList<>();
+        if (form.getColorOptions() != null) {
+            processEachOption(form.getColorOptions(), productOptions, "Color option not found", productEntity);
+        }
+        if (form.getSizeOptions() != null) {
+            processEachOption(form.getSizeOptions(), productOptions, "Size option not found", productEntity);
+        }
+        return productOptions;
+    }
+
+    private void processEachOption(Integer[] optionNos, List<ProductOption> productOptions, String errorMessage, Product productEntity) {
+        if (optionNos != null) {
+            for (Integer optionNo : optionNos) {
+                Options option = optionsRepository.findByNo(optionNo)
+                        .orElseThrow(() -> new EntityNotFoundException(errorMessage));
+                productOptions.add(new ProductOption(productEntity, option));
+            }
+        }
+    }
+
+    @NotNull
+    private List<Image> processImages(ProductCreateForm form, Product productEntity) {
         String[] originFileName = form.getOriginFileName();
         String[] serverFileName = form.getServerFileName();
         Long[] fileSize = form.getFileSize();
-        for (int i = 0; i < serverFileName.length; i++) {
+        List<Image> productImages = new ArrayList<>();
+        for (int i = 1; i < serverFileName.length; i++) {
             Image image = Image.builder()
                     .product(productEntity)
                     .serverName(serverFileName[i])
                     .originName(originFileName[i])
                     .fileSize(fileSize[i]).build();
-            productEntity.addProductImage(image);
+            productImages.add(image);
         }
-        // 색상 옵션 처리
-        if (form.getColorOptions() != null) {
-            for (Integer colorOptionNo : form.getColorOptions()) {
-                Options colorOption = optionsRepository.findByNo(colorOptionNo)
-                        .orElseThrow(() -> new EntityNotFoundException("Color option not found"));
-                ProductOption productColorOption = ProductOption.builder()
-                        .product(productEntity)
-                        .option(colorOption)
-                        .build();
-                productEntity.addProductOption(productColorOption);
-            }
-        }
-        // 사이즈 옵션 처리
-        if (form.getSizeOptions() != null) {
-            for (Integer sizeOptionNo : form.getSizeOptions()) {
-                Options sizeOption = optionsRepository.findByNo(sizeOptionNo)
-                        .orElseThrow(() -> new EntityNotFoundException("Size option not found"));
-                ProductOption productSizeOption = ProductOption.builder()
-                        .product(productEntity)
-                        .option(sizeOption)
-                        .build();
-                productEntity.addProductOption(productSizeOption);
-            }
-        }
-        log.info("엔티티 정보 ====== > {}", productEntity);
-        productRepository.save(productEntity);
+        return productImages;
     }
 }

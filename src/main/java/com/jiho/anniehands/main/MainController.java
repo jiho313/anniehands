@@ -29,9 +29,6 @@ public class MainController {
         // TODO: 현재 인기상품은 더미 데이터 사용 중 적절한 인기 제품 기준 할당 후 뷰에 출력하기
         Page<ProductDto> products = productService.getTop5NewProducts(pageable);
         model.addAttribute("products", products);
-        if (loginUser != null) {
-            log.info("현재 로그인된 유저 ====> {}", loginUser.toString());
-        }
         return "page/main/home";
     }
 

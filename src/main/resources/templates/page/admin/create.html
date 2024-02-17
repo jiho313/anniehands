@@ -21,14 +21,18 @@
                         <div class="row d-flex align-items-center">
                             <div class="form-group mb-3 col-8">
                                 <label class="form-label">상품명</label>
-                                <input th:field="*{name}" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" class="form-control form-control" placeholder="상품명을 입력해주세요." type="text">
-                                <div th:errors="*{name}" class="invalid-feedback"></div>
+                                <input class="form-control form-control"
+                                       placeholder="상품명을 입력해주세요."
+                                       th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                                       th:field="*{name}" type="text">
+                                <div class="invalid-feedback" th:errors="*{name}"></div>
                             </div>
                             <div class="col-2 pb-3">
                                 <div class="party-select-container">
                                     <label class="form-label">1차 분류</label>
-                                    <select th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}" class="form-select form-select select-party" id="parentCategorySelect"
-                                            name="parentCategorySelect">
+                                    <select class="form-select form-select select-party"
+                                            id="parentCategorySelect" name="parentCategorySelect"
+                                            th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}">
                                         <option disabled selected th:value="${0}">1차 분류 선택</option>
                                         <option th:each="parentCategory : ${parentCategories}"
                                                 th:text="${parentCategory.name}"
@@ -40,7 +44,11 @@
                             <div class="col-2 pb-3">
                                 <div class="party-select-container">
                                     <label class="form-label">2차 분류</label>
-                                    <select th:field="*{categoryNo}" th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}" class="form-select form-select" id="secondCategorySelect" name="categoryNo">
+                                    <select class="form-select form-select"
+                                            id="secondCategorySelect"
+                                            name="categoryNo"
+                                            th:classappend="${#fields.hasErrors('categoryNo') ? 'is-invalid' : ''}"
+                                            th:field="*{categoryNo}">
                                         <option disabled selected th:value="${0}">2차 분류 선택</option>
                                     </select>
                                     <div class="invalid-feedback" th:errors="*{categoryNo}"></div>
@@ -49,8 +57,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">상품 설명</label>
-                            <textarea th:field="*{content}" th:classappend="${#fields.hasErrors('content') ? 'is-invalid' : ''}" class="form-control" cols="30" name="content" placeholder="상품 설명을 작성해주세요."
-                                      rows="10" type="text"></textarea>
+                            <textarea class="form-control"
+                                      cols="30"
+                                      name="content" placeholder="상품 설명을 작성해주세요." rows="10"
+                                      th:classappend="${#fields.hasErrors('content') ? 'is-invalid' : ''}"
+                                      th:field="*{content}" type="text"></textarea>
                             <div class="invalid-feedback" th:errors="*{content}"></div>
                         </div>
 
@@ -63,6 +74,12 @@
                                        name="inputThumbnail"
                                        type="file">
                             </div>
+                            <div class="input-group">
+                                <input aria-describedby="inputGroupFileAddon0" aria-label="Upload"
+                                                            class="form-control mt-1"
+                                                            id="inputGroupFile0" type="file">
+                                <button class="btn btn-danger btn-remove" id="removeBtn0" type="button">X</button>
+                            </div>
                         </div>
 
                         <div class="row mt-3">
@@ -70,14 +87,21 @@
                             <!-- 재고 -->
                             <div class="input-group input-group-default mb-3 col">
                                 <span class="input-group-text">재고</span>
-                                <input th:field="*{stock}" th:classappend="${#fields.hasErrors('stock') ? 'is-invalid' : ''}" class="form-control" id="stock" min="1" name="stock" type="number">
+                                <input class="form-control"
+                                       id="stock"
+                                       min="1" name="stock"
+                                       th:classappend="${#fields.hasErrors('stock') ? 'is-invalid' : ''}"
+                                       th:field="*{stock}" type="number">
                                 <div class="invalid-feedback" th:errors="*{stock}"></div>
                             </div>
 
                             <!-- 가격 -->
                             <div class="input-group input-group-default mb-3 col">
                                 <span class="input-group-text">가격</span>
-                                <input th:field="*{price}" th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}" class="form-control" min="10" name="price" type="number">
+                                <input class="form-control"
+                                       min="10"
+                                       name="price" th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}"
+                                       th:field="*{price}" type="number">
                                 <div class="invalid-feedback" th:errors="*{price}"></div>
                             </div>
 

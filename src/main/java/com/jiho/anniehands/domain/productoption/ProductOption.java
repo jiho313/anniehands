@@ -23,14 +23,9 @@ public class ProductOption {
     @JoinColumn(name = "option_no", nullable = false)
     private Options option;
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    @Builder
-    public ProductOption(Long no, Product product, Options option) {
-        this.no = no;
+    public ProductOption(Product product, Options option) {
         this.product = product;
         this.option = option;
     }
+
 }

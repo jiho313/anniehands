@@ -41,8 +41,7 @@ public class Address {
     private Boolean isDefault;
 
     @Builder
-    public Address(Long no, String name, String zipcode, String addressName, String addressDetail, String req, Boolean isDefault, User user) {
-        this.no = no;
+    public Address(String name, String zipcode, String addressName, String addressDetail, String req, Boolean isDefault, User user) {
         this.name = name;
         this.zipcode = zipcode;
         this.addressName = addressName;

@@ -49,7 +49,6 @@ public class AdminProductController {
         preparePageModel(pageable, model, categoryResult);
         model.addAttribute("opt", opt);
         model.addAttribute("keyword", keyword);
-        log.info("모델 정보 ===> {}", model);
         return "page/admin/list";
     }
 
@@ -58,7 +57,6 @@ public class AdminProductController {
         OptionsDto optionsDto = prepareOptionsModel(model);
         ProductCreateForm productCreateForm = new ProductCreateForm();
         model.addAttribute("productCreateForm", productCreateForm);
-        log.info("옵션 값들 ======> {}", optionsDto);
         return "page/admin/create";
     }
 
