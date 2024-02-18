@@ -32,7 +32,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PageException.class)
     public String pageExceptionHandler(PageException ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-        return "redirect:/";
+        String redirectUrl = ex.getRedirectUrl();
+        return redirectUrl != null  ? "redirect:" + redirectUrl : "redirect:/";
     }
 
 }

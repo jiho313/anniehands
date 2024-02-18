@@ -89,7 +89,7 @@
                         <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${product.name}">상품명</h5>
+                        <h5 class="card-title separator" th:text="${product.name}">상품명</h5>
                         <p class="card-text">
                             <span th:if="${product.sale < product.price}" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + '원'">가격</span>
                             <span th:if="${product.sale < product.price}" class="fw-bold" style="color: red; margin-left: 10px;" th:text="${#numbers.formatInteger(product.sale, 0, 'COMMA')} + '원'">세일 가격</span>
@@ -113,7 +113,7 @@
                         <img alt="상품 이미지" class="card-img-top" th:src="${product.thumbnailPath}">
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${product.name}">상품명</h5>
+                        <h5 class="card-title separator" th:text="${product.name}">상품명</h5>
                         <p class="card-text">
                             <span th:if="${product.sale < product.price}" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + '원'">가격</span>
                             <span th:if="${product.sale < product.price}" class="fw-bold" style="color: red; margin-left: 10px;" th:text="${#numbers.formatInteger(product.sale, 0, 'COMMA')} + '원'">세일 가격</span>

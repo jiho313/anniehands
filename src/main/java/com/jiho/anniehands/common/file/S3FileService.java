@@ -3,6 +3,7 @@ package com.jiho.anniehands.common.file;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +29,17 @@ public class S3FileService implements FileService{
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
+    @Value("${s3.path.products}")
+    private String s3ProductsPath;
 
     @Override
     public UploadFileResponse upload(String path, MultipartFile file) throws IOException {
         return uploadOnS3(path, file);
+    }
+
+    @Override
+    public void deleteFile(String path, List<String> fileNames) {
+        deleteFileOnS3(path, fileNames);
     }
 
     private UploadFileResponse uploadOnS3(String path, MultipartFile file) throws IOException{
@@ -69,11 +78,19 @@ public class S3FileService implements FileService{
             log.error("Amazon S3 업로드 중 클라이언트 측 오류 발생: {}", e.getMessage(), e);
         } catch (InterruptedException e) {
             // 인터럽트 발생 시, 현재 스레드의 인터럽트 상태를 설정
-//            Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
             log.error("업로드 중 인터럽트 발생: {}", e.getMessage(), e);
             throw new RuntimeException("업로드 중 인터럽트 발생", e);
         }
         return uploadFileResponse;
+    }
+
+    private void deleteFileOnS3(String path, List<String> fileNames) {
+        for (String name : fileNames) {
+            String key = path + name;
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
+            log.info("버킷에서 이미지 삭제 완료: " + key);
+        }
     }
 
     private ObjectMetadata getMetadataValue(MultipartFile file) {
