@@ -19,8 +19,9 @@ public class Category {
     // 상품 목록과 관계 매핑
     // mappedBy는 연관관계의 주인이 아닌 쪽에서 사용되며, 연관관계의 주인을 지정할 때 사용한다.
     //  연관관계의 주인은 외래키를 관리하는 쪽(category)이다.
-    @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    // 현재 카테고리를 통해 상품을 가져오는 로직이 없으므로, 양방향 패핑을 해제한다.
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> products = new ArrayList<>();
 
     // 부모 카테고리와의 관계 매핑
     // FetchType - 연관관계 엔티티의 데이터를 즉시 로딩할지, 실제 접근 시점에 로딩할지 결정한다.

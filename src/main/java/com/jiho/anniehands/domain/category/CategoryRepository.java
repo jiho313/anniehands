@@ -19,11 +19,11 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Query("SELECT c FROM Category c WHERE c.parentCategory IS NULL")
     List<Category> findTopLevelCategories();
 
-    // 1 + N 테스트 사용
-    List<Category> findAll();
-
-    // 1 + N 테스트 사용
-    @Query("SELECT c FROM Category c JOIN FETCH c.products")
-    List<Category> findAllWithProducts();
+//    // 1 + N 테스트 사용
+//    List<Category> findAll();
+//
+//    // 1 + N 테스트 사용
+//    @Query("SELECT c FROM Category c JOIN FETCH c.products")
+//    List<Category> findAllWithProducts();
 
 }

@@ -1,5 +1,8 @@
 package com.jiho.anniehands.domain.admin.product;
 
+import com.jiho.anniehands.common.exception.CustomErrorCode;
+import com.jiho.anniehands.common.exception.PageException;
+import com.jiho.anniehands.common.file.FileService;
 import com.jiho.anniehands.domain.category.Category;
 import com.jiho.anniehands.domain.category.CategoryRepository;
 import com.jiho.anniehands.domain.image.Image;
@@ -28,6 +31,7 @@ public class AdminProductService {
     private final CategoryRepository categoryRepository;
     private final OptionsRepository optionsRepository;
     private final AdminProductJdbcRepository adminProductJdbcRepository;
+    private final FileService fileService;
 
     @Transactional
     public void createProduct(ProductCreateForm form) {
@@ -82,5 +86,19 @@ public class AdminProductService {
             productImages.add(image);
         }
         return productImages;
+    }
+
+    @Transactional
+    public void productDelete(Long no) {
+        Product product = productRepository.findByNo(no)
+                .orElseThrow(() -> new PageException(CustomErrorCode.NOT_FOUND_PRODUCT, "/admin/product/list"));
+        List<String> imagePathList = new ArrayList<>(product.getImages().stream()
+                .map(Image::getServerName)
+                .toList());
+        imagePathList.add(product.getThumbnailPath());
+        if (!imagePathList.isEmpty()) {
+            fileService.deleteFileByPath("product", imagePathList);
+        }
+        productRepository.delete(product);
     }
 }

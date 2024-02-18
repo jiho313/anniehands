@@ -65,7 +65,6 @@ document.getElementById('createProductForm').addEventListener('submit', function
         }
     });
 
-//    $('#createProductForm').submit();
     // 서버에 FormData 객체 전송
     fetch('/upload/product', {
         method: 'POST',
@@ -73,7 +72,6 @@ document.getElementById('createProductForm').addEventListener('submit', function
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
-        console.log(data);
         // 담긴 배열을 hidden input으로 form에 추가한다.
         data.forEach(function(item, index) {
             $('<input>').attr({ type: 'hidden', name: `originFileName[${index}]`, value: item.originFileName }).appendTo('#createProductForm');

@@ -24,8 +24,7 @@ public class MainController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal CustomUserDetails loginUser, Model model,
-                       @PageableDefault(size = 5, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String home(Model model, @PageableDefault(size = 5, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
         // TODO: 현재 인기상품은 더미 데이터 사용 중 적절한 인기 제품 기준 할당 후 뷰에 출력하기
         Page<ProductDto> products = productService.getTop5NewProducts(pageable);
         model.addAttribute("products", products);

@@ -1,5 +1,6 @@
 package com.jiho.anniehands.domain.admin.product;
 
+import com.jiho.anniehands.common.file.FileService;
 import com.jiho.anniehands.domain.admin.AdminCategoryService;
 import com.jiho.anniehands.domain.category.dto.CategoryDto;
 import com.jiho.anniehands.domain.category.dto.CategoryResultAdmin;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -29,13 +31,14 @@ public class AdminProductController {
     private final AdminCategoryService adminCategoryService;
     private final OptionsService optionsService;
     private final AdminProductService adminProductService;
+    private final FileService fileService;
 
     @GetMapping("/list")
-    public String productList(@PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
-                              @RequestParam(required = false) Integer categoryNo,
-                              @RequestParam(required = false) String opt,
-                              @RequestParam(required = false) String keyword,
-                              Model model) {
+    public String getProductList(@PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
+                                 @RequestParam(required = false) Integer categoryNo,
+                                 @RequestParam(required = false) String opt,
+                                 @RequestParam(required = false) String keyword,
+                                 Model model) {
 
         CategoryResultAdmin categoryResult;
         if (StringUtils.hasText(opt) && StringUtils.hasText(keyword)) {
@@ -54,7 +57,7 @@ public class AdminProductController {
 
     @GetMapping("/create")
     public String productCreateForm(Model model) {
-        OptionsDto optionsDto = prepareOptionsModel(model);
+        prepareOptionsModel(model);
         ProductCreateForm productCreateForm = new ProductCreateForm();
         model.addAttribute("productCreateForm", productCreateForm);
         return "page/admin/create";
@@ -71,18 +74,23 @@ public class AdminProductController {
         return "redirect:/admin/product/list";
     }
 
+    @GetMapping("/delete/{no}")
+    public String productDetele(@PathVariable Long no) {
+        adminProductService.productDelete(no);
+        return "redirect:/admin/product/list";
+    }
+
     @GetMapping("/children-categories")
     @ResponseBody
     public List<CategoryDto> getChildrenCategory(Integer parentCategoryNo) {
         return adminCategoryService.getChildrenCategories(parentCategoryNo);
     }
 
-    private OptionsDto prepareOptionsModel(Model model) {
+    private void prepareOptionsModel(Model model) {
         List<CategoryDto> parentCategories = adminCategoryService.getParentCategories();
         OptionsDto optionsDto = optionsService.findAll();
         model.addAttribute("parentCategories", parentCategories);
         model.addAttribute("options", optionsDto);
-        return optionsDto;
     }
 
     private void preparePageModel(Pageable pageable, Model model, CategoryResultAdmin categoryResult) {

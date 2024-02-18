@@ -51,3 +51,12 @@ function changePage(e, page) {
    e.preventDefault();
    updateAndSubmit("page", page, false);
 }
+
+$(".deleteButton").on("click", function(e){
+    e.preventDefault();
+    var deleteUrl = $(this).attr('href');
+    if(confirm('정말 삭제하시겠습니까?')) {
+            // 사용자가 '확인'을 클릭하면 삭제 처리를 합니다.
+            window.location.href = deleteUrl;
+        }
+});

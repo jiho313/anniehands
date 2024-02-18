@@ -71,7 +71,7 @@
                 <td th:text="${#temporals.format(product.updatedDate, 'yyyy-MM-dd a hh:mm', 'Asia/Seoul')}">수정일</td>
                 <td>
                     <a th:href="@{/admin/product/edit/{productNo}(productNo=${product.no})}" class="btn btn-warning">수정</a>
-                    <a th:href="@{/admin/product/delete/{productNo}(productNo=${product.no})}" class="btn btn-danger">삭제</a>
+                    <a th:href="@{/admin/product/delete/{productNo}(productNo=${product.no})}" class="btn btn-danger deleteButton">삭제</a>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(categoryResult.products.content)}">
