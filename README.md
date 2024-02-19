@@ -51,8 +51,8 @@
     2. 정의한 workflow에 따라 자동으로 테스트 및 빌드를 수행함.
     3. 빌드된 아티팩트를 S3에 전송하고, CodeDeploy에게 배포 명령을 내림.
     4. CodeDeploy는  S3의 아티팩트를 EC2의 임시 디렉토리에 업로드 함.
-    5. `appspec.yml`에 정의된 대로 임시 디렉토리의 아티팩트를 EC2의 최종위치로 복사함.
-    6. `deploy.sh`에 정의된 절차에 따라 아티팩트가 업로드된 EC2 경로를 찾아 배포 수행함.
+    5. **`appspec.yml`** 에 정의된 대로 임시 디렉토리의 아티팩트를 EC2의 최종위치로 복사함.
+    6. **`deploy.sh`** 에 정의된 절차에 따라 아티팩트가 업로드된 EC2 경로를 찾아 배포 수행함.
 2. 이로 인해 더 이상 main branch가 업데이트될 때마다 수동으로 clone과 배포 작업을 할 필요가 없어짐.
 3. 테스트 및 빌드가 정상적으로 완료됐을 때 자동으로 EC2에 배포 과정을 수행하므로 지속적 배포가 가능해졌음.
 ![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/b3473562-d6f8-45b7-83dd-0894c8e8699d)
@@ -70,139 +70,49 @@
 - 🔵 CI/CD 도입 후 자동화 된 빌드/배포
 ![CICD Pipeline](https://github.com/jiho313/anniehands/assets/130119257/0e84c13c-89e4-4591-a7cd-cd4b304b93d8)
 
-### 2. **AOP 개념을 활용한 `@ControllerAdivce` 중앙집중식 예외 처리**
+### 2. **JPA + MySQL 환경에서 DB 성능 개선을 위한 Bulk Insert 구현**
 <details>
 <summary>클릭하고 더 자세히 보기!</summary>
+<aside>
 	
-**(중앙처리 전) try~catch 문이 여러 컨트롤러에 흩어져 있고 에러 메시지 직접 정의**
+🚨 **[해당 과정을 담은 블로그 포스팅](https://marchcodig.tistory.com/336)**
 
-```java
-public class UserController {
+ </aside>
+ 
+### **[상황설명]**
 
-    @PostMapping("/signup")
-    public String signup(@Valid UserForm userForm, BindingResult errors) {
-        validateUserForm(userForm, errors);
-        if (errors.hasErrors()) {
-            return "page/user/signup";
-        }
-        try {
-						// 순환 참조 방지를 위해 가입 전용 userRegistrationService에서 userService를 의존하여 가입
-            userRegistrationService.registerUser(userForm);
-            return "redirect:/page/user/login";
-        } catch (UserException e) {
-            // UserException 발생 시 처리 로직
-            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-            return "redirect:/" + ex.getRedirectUrl(); // 예외 객체에 저장된 URL로 리다이렉트
-        } catch (Exception e) {
-            // 기타 예외 처리 로직
-            redirectAttributes.addFlashAttribute("errorMessage", "등록 중 오류 발생");
-            return "redirect:/page/user/signup";
-        }
-    }
-}
-public class UserService {
-
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    // 아이디 혹은 이메일 중복 검사
-    private void validateDuplicateUser(User user) {
-        userRepository.findById(user.getId()).ifPresent(u -> {
-            throw new UserException("이미 사용 중인 아이디입니다.");
-        });
-        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
-            throw new UserException("이미 사용 중인 이메일입니다.");
-        });
-    }
-}
-```
-
-**(중앙처리 후) 예외를 `GlobalExceptionHandler` 에서 한 번에 처리함**
-
-```java
-@ControllerAdvice
-public class GlobalExceptionHandler{
-
-		// 유저 관련 예외 처리 핸들러
-    @ExceptionHandler(UserException.class)
-    public String userExceptionHandler(UserException ex, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-        return "redirect:/" + ex.getRedirectUrl();
-    }
-    // 잘못된 페이지 요청을 했을 때 예외 처리 핸들러
-    @ExceptionHandler(PageException.class)
-    public String pageExceptionHandler(PageException ex, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-        return "redirect:/";
-    }
-}
-public class UserController {
-
-    @PostMapping("/signup")
-    public String signup(@Valid UserForm userForm, BindingResult errors) {
-				validateUserForm(userForm, errors);
-        if (errors.hasErrors()) {
-            return "page/user/signup";
-        }
-				// 순환 참조 방지를 위해 가입 전용 서비스 클래스에서 userService를 의존하여 가입
-				userRegistrationService.registerUser(userForm);
-				return "redirect:/page/user/login";
-    }
-}
-public class UserService {
-
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    // 사용자 저장
-    public User saveUser(UserForm userForm) {
-        User user = createUser(userForm);
-        validateDuplicateUser(user);
-        userRepository.save(user);
-        return user;
-    }
-    // 아이디 혹은 이메일 중복 검사
-    private void validateDuplicateUser(User user) {
-        userRepository.findById(user.getId()).ifPresent(u -> {
-            throw new UserException("이미 사용 중인 아이디입니다.");
-        });
-        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
-            throw new UserException("이미 사용 중인 이메일입니다.");
-        });
-    }
-}
-```
-
-### [상황설명]
-
-1. 기존의 AnnieHands에서는 각 컨트롤러에서 예외를 개별적으로 처리하고 있었음.
-2. 또한, 각 예외 상황에서 에러 코드와 메시지를 직접 정의하고 있었음.
+1. 관리자가 상품을 등록할 때, 여러 개의 이미지와 옵션을 지정하여 저장할 수 있음.
+2. 저장시에는 Spring Data JPA의 **`saveAll()`** 메소드를 사용하여 데이터베이스에 여러 개의 데이터를 저장함.
 
 ### **[문제점 및 이슈]**
 
-1. 각 컨트롤러에서 예외를 직접 처리하면서 소모되는 시간이 늘어나고, 많은 양의 예외 처리 로직이 많은 양 중복됨. 이는 유지보수의 어려움으로 이어질 것임.
-2. 에러 코드와 메시지를 직접 정의하면서 발생하는 일관성 결여와 변경의 어려움, 그리고 오타와 같은 실수가 발생할 수 있음.
+1. **`saveAll()`** 메소드 사용 시, 삽입할 데이터의 수(N)만큼 Insert쿼리(N번)를 수행함.
+2. 이는 데이터 삽입 요청이 많아질수록 데이터베이스 성능 저하를 일으킬 수 있음.
 
 ### **[원인분석]**
-
-1. 중앙집중식 예외 처리를 하지 않고 각 컨트롤러마다 개별적으로 예외를 처리하고 있기 때문임.
-2. 초기 구상 시 에러 코드와 메시지의 재사용성을 고려하지 않았음.
+![saveAll()구조](https://github.com/jiho313/anniehands/assets/130119257/58e74f81-2eee-46c0-8070-74decc4c5a51)
+1. **`saveAll()`** 메소드 내부 구조를 살펴보면, 인자로 받은 엔티티 리스트를 순회하며 각 엔티티에 대해 **`save()`** 메소드를 호출함.
+2. 따라서 N개의 엔티티만큼 **`save()`** 메소드를 N번 호출하기 때문에 엔티티의 수 만큼 Insert 쿼리가 실행됨.
 
 ### **[해결 방안 및 결과]**
 
-1. **`@ControllerAdvice`** 를 사용하여 중앙집중식 예외처리 방식을 도입, 모든 예외 처리 로직을 하나의 클래스로 집중시킴.
-    1. 이는 예외 처리 코드의 중복을 제거하고 개발자는 기능 개발에 집중할 수 있기 때문에 생산성이 높아짐.
-2. 커스텀 에러 코드와 메시지를 `**Enum`** 으로 통일하여 정의함.
-    1. 이는 일관성 있는 예외 처리와 변경 및 관리가 훨씬 용이해짐.
+1. 현재 엔티티의 ID채번 방식은 **`IDENTITY`** 전략을 사용하고 있기 때문에 JPA Batch 기능을 사용하기 어려움.
+    1. IDENTITY 전략은 데이터가 데이터베이스에 삽입될 때 ID를 반환받아야 하므로, 데이터가 즉시 데이터베이스에 반영되길 기대함.
+    2. 반면 JPA Batch의 쓰기지연 전략은 여러 데이터베이스 작업(쿼리)들을 모아두었다가 트랜잭션이 커밋될 때 한 번에 데이터베이스에 전송함.
+    3. 따라서 두 전략은 서로 상충되므로, IDENTITY 채번 전략을 사용하는 JPA환경에서는 JPA Batch기능을 사용할 수 없음.
+2. ID 채번 방식을 **`SEQUENCE`** 나 **`TABLE`** 로 변경하면 Bacth 기능 사용이 가능하지만, 사용 중인 MySQL에서는 SEQUENCE를 사용할 수 없고, TABLE 전략은 테이블을 수정해야 하는 부담과 성능적으로도 다른 전략에 비해 불리함.
+3. 따라서 **`NamedParameterJdbcTemplate`** 을 사용해서 구현하였고 테스트 결과 의미있는 성능 개선을 기대할 수 있음.
+    1. **`JdbcTemplate`** 이 아닌 **`NamedParameterJdbcTemplate`** 으로 구현한 이유는 위치와 ‘?’로 표현되었던 위치 기반 바인딩 대신 이름 기반의 명확한 파라미터 관리로 가독성 높은 JDBC를 사용이 가능함.
+4. 실제로 데이터 1만 건을 Insert 하는 데 걸리는 시간을 테스트 한 결과, **JPA의 saveAll() 메소드는 50.42초가 소요되었으나, JDBC로 Bulk Insert를 구현했을 때는 0.41초로 성능이 약 123배 향상되었음.**
+![image](https://github.com/jiho313/anniehands/assets/130119257/9369946a-5401-46a0-a682-72e830216194)
 
-### **[깨달은 점]**
-
-1. **중복 최소화, 생산성 최대화** 중앙집중식 예외 처리 방식의 도입으로 각 컨트롤러에 흩어져 있던 예외 처리 로직의 중복을 제거할 수 있었고, 개발자는 기능 개발에 더 집중할 수 있게 되었다. 이는 전체적인 개발 생산성을 크게 향상시킬 수 있다.
-2. **스마트한 에러 관리** `**Enum**`을 활용한 커스텀 에러 코드와 메시지 정의 방식은 에러 관리의 일관성을 보장하며, 에러 코드와 메시지의 변경 및 관리를 용이하게 만들 수 있다. 이를 통해 에러 처리에 대한 실수를 줄일 수 있고, 보다 유지 보수의 편의성을 향상 시킬 수 있다.
 </details>
 
-> **요약➡️AOP(관점 지향 프로그래밍)** 개념을 활용한 **중앙집중식 예외 처리 방식 도입**은 컨트롤러별 예외 처리 로직의 중복을 줄여 개발 생산성을 향상시켰고, **`Enum`을 사용한 에러 코드 및 메시지 관리**는 에러 처리의 일관성과 유지 보수의 편의성을 높일 수 있었다.
-> 
+> **요약**➡️ **JPA와 JDBC를 혼합 사용하여 Bulk Insert를 구현**하면서, 단순한 기능 구현을 넘어서 기능의 성능과 효율성을 고려하는 중요한 개발자 마인드를 다시 한 번 깨달았다. 또한, 기술 선택 시 최신 기술의 편리함에만 의존하지 않고, **고수준과 저수준 기술 사이에서 적절한 균형**을 찾는 것의 중요성을 인식하고, 이**를 통해 의미 있는 성능 개선을 경험**했다.
+>
+- **데이터 1만 건을 Insert 하는 데 JPA의 saveAll() 메소드는 50.42초가 소요되었으나, JDBC로 Bulk Insert를 구현했을 때는 0.41초로 성능이 약 123배 향상되었음.**
+  
+![image](https://github.com/jiho313/anniehands/assets/130119257/9369946a-5401-46a0-a682-72e830216194)
 
 ### 3. **회원가입시 SMS 인증 번호를 세션 저장에서 Redis 도입 저장**
 <details>
@@ -241,6 +151,41 @@ public class UserService {
 
 > **요약**➡️ 세션 대신 **레디스**를 사용함으로써 데이터 관리를 더욱 **유연하게 관리**할 수 있었고, **타임아웃 및 중복 문제를 사전에 예방**하며 새로운 기술을 적극적으로 적용하여 개발과 서비스를 개선할 수 있었다.
 
+
+### 4. **AOP 개념을 활용한 `@ControllerAdivce` 중앙집중식 예외 처리**
+<details>
+<summary>클릭하고 더 자세히 보기!</summary>
+
+### [상황설명]
+
+1. 기존의 AnnieHands에서는 각 컨트롤러에서 예외를 개별적으로 처리하고 있었음.
+2. 또한, 각 예외 상황에서 에러 코드와 메시지를 직접 정의하고 있었음.
+
+### **[문제점 및 이슈]**
+
+1. 각 컨트롤러에서 예외를 직접 처리하면서 소모되는 시간이 늘어나고, 많은 양의 예외 처리 로직이 많은 양 중복됨. 이는 유지보수의 어려움으로 이어질 것임.
+2. 에러 코드와 메시지를 직접 정의하면서 발생하는 일관성 결여와 변경의 어려움, 그리고 오타와 같은 실수가 발생할 수 있음.
+
+### **[원인분석]**
+
+1. 중앙집중식 예외 처리를 하지 않고 각 컨트롤러마다 개별적으로 예외를 처리하고 있기 때문임.
+2. 초기 구상 시 에러 코드와 메시지의 재사용성을 고려하지 않았음.
+
+### **[해결 방안 및 결과]**
+
+1. **`@ControllerAdvice`** 를 사용하여 중앙집중식 예외처리 방식을 도입, 모든 예외 처리 로직을 하나의 클래스로 집중시킴.
+    1. 이는 예외 처리 코드의 중복을 제거하고 개발자는 기능 개발에 집중할 수 있기 때문에 생산성이 높아짐.
+2. 커스텀 에러 코드와 메시지를 **`Enum`** 으로 통일하여 정의함.
+    1. 이는 일관성 있는 예외 처리와 변경 및 관리가 훨씬 용이해짐.
+
+### **[깨달은 점]**
+
+1. **중복 최소화, 생산성 최대화** 중앙집중식 예외 처리 방식의 도입으로 각 컨트롤러에 흩어져 있던 예외 처리 로직의 중복을 제거할 수 있었고, 개발자는 기능 개발에 더 집중할 수 있게 되었다. 이는 전체적인 개발 생산성을 크게 향상시킬 수 있다.
+2. **스마트한 에러 관리** **`Enum`** 을 활용한 커스텀 에러 코드와 메시지 정의 방식은 에러 관리의 일관성을 보장하며, 에러 코드와 메시지의 변경 및 관리를 용이하게 만들 수 있다. 이를 통해 에러 처리에 대한 실수를 줄일 수 있고, 보다 유지 보수의 편의성을 향상 시킬 수 있다.
+</details>
+
+> **요약➡️AOP(관점 지향 프로그래밍)** 개념을 활용한 **중앙집중식 예외 처리 방식 도입**은 컨트롤러별 예외 처리 로직의 중복을 줄여 개발 생산성을 향상시켰고, **`Enum`을 사용한 에러 코드 및 메시지 관리**는 에러 처리의 일관성과 유지 보수의 편의성을 높일 수 있었다.
+> 
 
 
 
