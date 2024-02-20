@@ -1,8 +1,8 @@
 package com.jiho.anniehands.domain.admin.product;
 
-import com.jiho.anniehands.common.exception.CustomErrorCode;
-import com.jiho.anniehands.common.exception.PageException;
-import com.jiho.anniehands.common.file.FileService;
+import com.jiho.anniehands.global.exception.CustomErrorCode;
+import com.jiho.anniehands.global.exception.PageException;
+import com.jiho.anniehands.global.common.file.FileService;
 import com.jiho.anniehands.domain.category.Category;
 import com.jiho.anniehands.domain.category.CategoryRepository;
 import com.jiho.anniehands.domain.image.Image;

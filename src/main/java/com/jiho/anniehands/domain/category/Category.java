@@ -1,6 +1,5 @@
 package com.jiho.anniehands.domain.category;
 
-import com.jiho.anniehands.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 

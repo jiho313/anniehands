@@ -1,7 +1,7 @@
 package com.jiho.anniehands.domain.address;
 
 import com.jiho.anniehands.domain.user.User;
-import com.jiho.anniehands.domain.user.UserForm;
+import com.jiho.anniehands.domain.user.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

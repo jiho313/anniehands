@@ -1,6 +1,6 @@
 package com.jiho.anniehands.domain.user;
 
-import com.jiho.anniehands.common.util.BaseTimeEntity;
+import com.jiho.anniehands.global.common.util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;

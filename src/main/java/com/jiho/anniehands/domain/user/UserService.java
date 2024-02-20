@@ -1,7 +1,8 @@
 package com.jiho.anniehands.domain.user;
 
-import com.jiho.anniehands.common.exception.CustomErrorCode;
-import com.jiho.anniehands.common.exception.UserException;
+import com.jiho.anniehands.domain.user.dto.UserForm;
+import com.jiho.anniehands.global.exception.CustomErrorCode;
+import com.jiho.anniehands.global.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

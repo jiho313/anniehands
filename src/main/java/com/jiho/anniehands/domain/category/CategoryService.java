@@ -1,7 +1,7 @@
 package com.jiho.anniehands.domain.category;
 
-import com.jiho.anniehands.common.exception.CustomErrorCode;
-import com.jiho.anniehands.common.exception.PageException;
+import com.jiho.anniehands.global.exception.CustomErrorCode;
+import com.jiho.anniehands.global.exception.PageException;
 import com.jiho.anniehands.domain.category.dto.CategoryDto;
 import com.jiho.anniehands.domain.category.dto.CategoryResult;
 import com.jiho.anniehands.domain.product.ProductRepository;
