@@ -1,7 +1,7 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.common.exception.CustomErrorCode;
-import com.jiho.anniehands.common.exception.PageException;
+import com.jiho.anniehands.global.exception.CustomErrorCode;
+import com.jiho.anniehands.global.exception.PageException;
 import com.jiho.anniehands.domain.product.dto.ProductDetailDto;
 import com.jiho.anniehands.domain.product.dto.ProductDto;
 import lombok.RequiredArgsConstructor;

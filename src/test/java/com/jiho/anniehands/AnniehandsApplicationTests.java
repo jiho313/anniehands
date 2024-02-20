@@ -1,6 +1,6 @@
 package com.jiho.anniehands;
 
-import com.jiho.anniehands.common.exception.CustomErrorCode;
+import com.jiho.anniehands.global.exception.CustomErrorCode;
 import com.jiho.anniehands.domain.product.ProductService;
 import com.jiho.anniehands.domain.user.Role;
 import com.jiho.anniehands.domain.user.UserRepository;
@@ -21,6 +21,7 @@ class AnniehandsApplicationTests {
 	@Test
 	void enumTest() {
 		assertThat(Role.ROLE_ADMIN.name()).isEqualTo("ROLE_ADMIN");
+		assertThat(Role.ROLE_ADMIN.getDescription()).isEqualTo("관리자");
 		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getCode()).isEqualTo("400");
 		assertThat(CustomErrorCode.NO_MATCHING_MEMBER.getMessage()).isEqualTo("없는 회원입니다.");
 	}

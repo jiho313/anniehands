@@ -1,6 +1,6 @@
 package com.jiho.anniehands.domain.product;
 
-import com.jiho.anniehands.common.util.BaseTimeEntity;
+import com.jiho.anniehands.global.common.util.BaseTimeEntity;
 import com.jiho.anniehands.domain.category.Category;
 import com.jiho.anniehands.domain.image.Image;
 import com.jiho.anniehands.domain.productoption.ProductOption;
